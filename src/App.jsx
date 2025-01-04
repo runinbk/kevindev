@@ -6,7 +6,7 @@ import './styles/index.css'
 function App() {
   return (
     <Router>
-      <div className="min-h-screen">
+      <div className="min-h-screen grid grid-rows-[auto,1fr]">
         <Header />
         <main>
           <Hero />
