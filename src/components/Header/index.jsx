@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X, Globe } from 'lucide-react';
+import * as Icons from 'lucide-react';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -36,7 +36,7 @@ const Header = () => {
                 </a>
               ))}
               <button className="p-2 text-dark hover:text-secondary transition-colors">
-                <Globe className="h-5 w-5" />
+                <Icons.Globe className="h-5 w-5" />
               </button>
             </div>
           </div>
@@ -48,9 +48,9 @@ const Header = () => {
               className="p-2 rounded-md text-dark hover:text-secondary transition-colors"
             >
               {isMenuOpen ? (
-                <X className="h-6 w-6" />
+                <Icons.X className="h-6 w-6" />
               ) : (
-                <Menu className="h-6 w-6" />
+                <Icons.Menu className="h-6 w-6" />
               )}
             </button>
           </div>
@@ -71,7 +71,7 @@ const Header = () => {
                 </a>
               ))}
               <button className="w-full flex items-center px-3 py-2 text-base font-medium text-dark hover:text-secondary transition-colors">
-                <Globe className="h-5 w-5 mr-2" />
+                <Icons.Globe className="h-5 w-5 mr-2" />
                 Cambiar idioma
               </button>
             </div>
