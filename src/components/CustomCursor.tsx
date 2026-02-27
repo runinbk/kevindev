@@ -60,20 +60,20 @@ export const CustomCursor = () => {
     <div className="hidden md:block pointer-events-none fixed inset-0 z-[9999]">
       <div
         ref={mainCursor}
-        className="fixed w-2 h-2 bg-white rounded-full -translate-x-1/2 -translate-y-1/2"
-        style={{ mixBlendMode: 'difference' }}
+        className="fixed w-2 h-2 rounded-full -translate-x-1/2 -translate-y-1/2"
+        style={{ backgroundColor: 'var(--text-primary)' }}
       />
       <div
         ref={secondaryCursor}
         className={cn(
-          "fixed w-10 h-10 border border-white rounded-full -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ease-out flex items-center justify-center bg-white/10",
-          state === 'hover' && "scale-[2.5] bg-white border-white",
-          state === 'project' && "scale-[3.5] bg-white border-white"
+          "fixed w-10 h-10 border rounded-full -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ease-out flex items-center justify-center",
+          state === 'hover' && "scale-[2.5] bg-foreground/5",
+          state === 'project' && "scale-[3.5] bg-accent/20 border-accent"
         )}
-        style={{ mixBlendMode: 'difference' }}
+        style={{ borderColor: 'var(--text-primary)', opacity: 0.5 }}
       >
         {state === 'project' && (
-          <span className="text-[3px] font-bold uppercase text-black tracking-widest scale-100">Ver →</span>
+          <span className="text-[3px] font-bold uppercase text-foreground tracking-widest scale-100">Ver →</span>
         )}
       </div>
     </div>

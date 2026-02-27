@@ -11,7 +11,7 @@ export const Marquee = ({ text }: { text: string }) => {
       gsap.to(".marquee-inner", {
         xPercent: -50,
         repeat: -1,
-        duration: 20,
+        duration: 30,
         ease: "none"
       });
     }, marqueeRef);
@@ -20,13 +20,13 @@ export const Marquee = ({ text }: { text: string }) => {
   }, []);
 
   return (
-    <div ref={marqueeRef} className="w-full py-4 bg-accent overflow-hidden whitespace-nowrap">
+    <div ref={marqueeRef} className="w-full py-6 border-y border-border/50 bg-transparent overflow-hidden whitespace-nowrap">
       <div className="marquee-inner inline-block">
-        <span className="text-[14px] font-bold uppercase text-black font-headline px-4">
-          {text + text + text + text}
+        <span className="text-[12px] font-bold uppercase text-muted-foreground/60 tracking-[0.3em] font-body px-8">
+          {text + text + text}
         </span>
-        <span className="text-[14px] font-bold uppercase text-black font-headline px-4">
-          {text + text + text + text}
+        <span className="text-[12px] font-bold uppercase text-muted-foreground/60 tracking-[0.3em] font-body px-8">
+          {text + text + text}
         </span>
       </div>
     </div>

@@ -56,13 +56,13 @@ export const HeroSection = () => {
       // Parallax effect on mouse move
       const onMouseMove = (e: MouseEvent) => {
         const { clientX, clientY } = e;
-        const xPos = (clientX - window.innerWidth / 2) * 0.02;
-        const yPos = (clientY - window.innerHeight / 2) * 0.02;
+        const xPos = (clientX - window.innerWidth / 2) * 0.015;
+        const yPos = (clientY - window.innerHeight / 2) * 0.015;
 
         gsap.to(".hero-title-parallax", {
           x: xPos,
           y: yPos,
-          duration: 1,
+          duration: 1.2,
           ease: "power2.out"
         });
       };
@@ -77,42 +77,33 @@ export const HeroSection = () => {
 
   return (
     <section ref={sectionRef} className="relative min-h-[100svh] flex flex-col justify-center px-6 md:px-12 pt-20 overflow-hidden">
-      <div className="max-w-[95vw] mx-auto w-full">
-        <span className="hero-label block text-[11px] font-bold tracking-[0.2em] uppercase text-muted-foreground mb-8">
+      <div className="max-w-7xl mx-auto w-full">
+        <span className="hero-label block text-[11px] font-bold tracking-[0.2em] uppercase text-muted-foreground mb-6">
           DESARROLLADOR WEB · SANTA CRUZ, BOLIVIA
         </span>
 
-        <h1 className="hero-title tracking-tightest mb-10 hero-title-parallax" style={{ 
-          fontSize: 'clamp(96px, 16vw, 220px)',
-          lineHeight: '0.88',
+        <h1 className="hero-title tracking-tightest mb-8 hero-title-parallax" style={{ 
+          fontSize: 'clamp(48px, 10vw, 110px)',
+          lineHeight: '0.95',
           letterSpacing: '-0.04em'
         }}>
-          <div className="flex overflow-hidden">
+          <div className="flex flex-wrap overflow-hidden">
             {"KEVIN".split("").map((char, i) => (
               <span key={i} className="hero-char inline-block font-headline font-extrabold uppercase">{char}</span>
             ))}
-          </div>
-          <div className="flex overflow-hidden">
+            <span className="w-4" />
             {"GÓMEZ.".split("").map((char, i) => (
               <span key={i} className="hero-char inline-block font-headline font-extrabold uppercase text-accent">{char}</span>
             ))}
           </div>
         </h1>
 
-        <style jsx>{`
-          @media (max-width: 768px) {
-            .hero-title {
-              font-size: clamp(72px, 20vw, 110px) !important;
-            }
-          }
-        `}</style>
-
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-10">
           <div className="max-w-xl">
-            <div className="h-8 overflow-hidden mb-4">
-              <span ref={rotatingTextRef} className="block text-xl md:text-2xl font-semibold text-foreground"></span>
+            <div className="h-6 overflow-hidden mb-4">
+              <span ref={rotatingTextRef} className="block text-lg md:text-xl font-bold text-foreground opacity-80 uppercase tracking-widest"></span>
             </div>
-            <p className="hero-desc text-lg md:text-xl text-muted-foreground leading-relaxed">
+            <p className="hero-desc text-base md:text-lg text-muted-foreground leading-relaxed max-w-lg">
               Construyo experiencias digitales que conectan marcas con sus audiencias. Cada proyecto es único y enfocado en el impacto visual y funcional.
             </p>
           </div>
@@ -131,7 +122,7 @@ export const HeroSection = () => {
         </div>
       </div>
 
-      <div className="mt-24">
+      <div className="mt-20">
         <Marquee text="DESARROLLO WEB · LANDING PAGES · E-COMMERCE · APPS · UI/UX · CODING · " />
       </div>
 

@@ -46,12 +46,12 @@ export const ProjectsSection = () => {
     <section id="proyectos" ref={containerRef} className="py-32 px-6 md:px-12 bg-background">
       <div className="max-w-7xl mx-auto">
         <div className="mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8">
-          <h2 className="projects-title text-6xl md:text-9xl font-headline font-extrabold tracking-tightest uppercase overflow-hidden">
+          <h2 className="projects-title text-4xl md:text-7xl font-headline font-extrabold tracking-tightest uppercase overflow-hidden">
             {"PROYECTOS".split("").map((char, i) => (
               <span key={i} className="projects-title-char inline-block">{char}</span>
             ))}<span className="text-accent">.</span>
           </h2>
-          <p className="text-muted-foreground text-lg md:text-xl max-w-sm leading-relaxed">
+          <p className="text-muted-foreground text-base md:text-lg max-w-sm leading-relaxed">
             Una selección curada de trabajos que desafían la norma visual y funcional.
           </p>
         </div>
