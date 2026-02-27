@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from 'react';
@@ -31,6 +32,7 @@ export default function RootLayout({
           message?.includes('chrome-extension') ||
           message?.includes('Failed to connect to MetaMask')
         ) {
+          // Prevent the error from reaching the Next.js dev overlay
           e.stopImmediatePropagation();
           if (e.preventDefault) e.preventDefault();
         }
