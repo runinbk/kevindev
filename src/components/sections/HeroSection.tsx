@@ -43,15 +43,37 @@ export const HeroSection = () => {
         ease: "power3.out"
       }, "-=0.6");
 
+      // Corregida la animación de rotación de palabras:
+      // La palabra actual sube y desaparece, la nueva entra desde abajo.
       const rotationTl = gsap.timeline({ repeat: -1 });
-      t.words.forEach((word) => {
-        rotationTl
-          .fromTo(rotatingTextRef.current, 
-            { y: 30, opacity: 0 }, 
-            { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" })
-          .set(rotatingTextRef.current, { textContent: word })
-          .to(rotatingTextRef.current, 
-            { y: -30, opacity: 0, duration: 0.5, ease: "power2.in", delay: 2 });
+      t.words.forEach((word, i) => {
+        // Establecer la primera palabra inicialmente
+        if (i === 0) {
+          rotationTl.set(rotatingTextRef.current, { textContent: word, y: 0, opacity: 1 });
+        }
+        
+        // Pausa para que el usuario lea la palabra
+        rotationTl.to({}, { duration: 2.5 });
+        
+        // Animar hacia ARRIBA (salir)
+        rotationTl.to(rotatingTextRef.current, {
+          y: -20,
+          opacity: 0,
+          duration: 0.4,
+          ease: "power2.in",
+        });
+        
+        // Cambiar el texto a la siguiente palabra (circular)
+        const nextWord = t.words[(i + 1) % t.words.length];
+        rotationTl.set(rotatingTextRef.current, { textContent: nextWord, y: 20 });
+        
+        // Animar desde ABAJO (entrar)
+        rotationTl.to(rotatingTextRef.current, {
+          y: 0,
+          opacity: 1,
+          duration: 0.4,
+          ease: "power2.out",
+        });
       });
 
       const onMouseMove = (e: MouseEvent) => {
@@ -75,14 +97,14 @@ export const HeroSection = () => {
   }, [language, t.words]);
 
   return (
-    <section ref={sectionRef} className="relative min-h-[100svh] flex flex-col justify-center px-6 md:px-12 pt-20 overflow-hidden">
+    <section ref={sectionRef} className="relative min-h-[90svh] flex flex-col justify-center px-6 md:px-12 pt-20 overflow-hidden">
       <div className="max-w-7xl mx-auto w-full">
         <span className="hero-label block text-[11px] font-bold tracking-[0.2em] uppercase text-muted-foreground mb-6">
           {t.label}
         </span>
 
         <h1 className="hero-title tracking-tightest mb-8 hero-title-parallax" style={{ 
-          fontSize: 'clamp(48px, 8vw, 110px)',
+          fontSize: 'clamp(40px, 7vw, 90px)',
           lineHeight: '0.9',
           letterSpacing: '-0.04em'
         }}>

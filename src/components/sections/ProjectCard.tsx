@@ -38,8 +38,9 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
 
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10 opacity-60 group-hover:opacity-90 transition-opacity duration-500" />
 
+      {/* Ajustado: Fondo blanco en modo Light, verde eléctrico en modo Dark */}
       <div className="absolute top-8 left-8 z-20">
-        <span className="text-[11px] font-bold tracking-[0.2em] uppercase bg-accent dark:bg-accent text-black dark:text-black backdrop-blur-md px-3 py-1.5 border border-border/50">
+        <span className="text-[11px] font-bold tracking-[0.2em] uppercase bg-white dark:bg-accent text-black dark:text-black backdrop-blur-md px-3 py-1.5 border border-border/50">
           {project.year}
         </span>
       </div>
@@ -64,12 +65,13 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
           <h3 className="text-3xl md:text-4xl font-headline font-bold uppercase tracking-tightest leading-none text-white">
             {title}
           </h3>
+          {/* Ajustado: Fondo blanco en modo Light, verde eléctrico en modo Dark */}
           <div className={cn(
             "w-12 h-12 rounded-full flex items-center justify-center transition-all duration-500 border border-white/20",
-            "bg-accent dark:bg-accent",
+            "bg-white dark:bg-accent text-black dark:text-black",
             isHovered ? "scale-100 rotate-0" : "scale-0 rotate-45"
           )}>
-            <ArrowUpRight className="w-6 h-6 text-black dark:text-black" />
+            <ArrowUpRight className="w-6 h-6" />
           </div>
         </div>
       </div>

@@ -45,15 +45,16 @@ export const ProjectsSection = () => {
   }, [language]);
 
   return (
-    <section id="proyectos" ref={containerRef} className="py-32 px-6 md:px-12 bg-background">
+    <section id="proyectos" ref={containerRef} className="py-24 px-6 md:px-12 bg-background">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8">
-          <h2 className="projects-title text-xl md:text-2xl font-headline font-extrabold tracking-tightest uppercase overflow-hidden">
+        <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-8">
+          {/* Tamaño reducido para un look más refinado */}
+          <h2 className="projects-title text-lg md:text-xl font-headline font-extrabold tracking-tightest uppercase overflow-hidden">
             {t.title.split("").map((char, i) => (
               <span key={i} className="projects-title-char inline-block">{char}</span>
             ))}<span className="text-accent">.</span>
           </h2>
-          <p className="text-muted-foreground text-sm md:text-base max-w-sm leading-relaxed">
+          <p className="text-muted-foreground text-xs md:text-sm max-w-sm leading-relaxed">
             {t.subtitle}
           </p>
         </div>
