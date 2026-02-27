@@ -69,11 +69,13 @@ export default function ProjectDetailPage() {
         />
         <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-12">
           <div className="max-w-7xl mx-auto w-full">
-            <span className="reveal-item block text-accent font-bold uppercase tracking-[0.3em] text-sm mb-4">
+            {/* Se fuerza el color lima para las categorías sobre el fondo oscuro */}
+            <span className="reveal-item block text-[#C8FF00] font-bold uppercase tracking-[0.3em] text-sm mb-4">
               {categories.join(" — ")} · {project.year}
             </span>
-            <h1 className="reveal-item text-6xl md:text-[10vw] font-headline font-bold uppercase leading-none tracking-tightest">
-              {title}<span className="text-accent">.</span>
+            {/* Se fuerza un color crema suave (blanco no brillante) para el título sobre el fondo oscuro */}
+            <h1 className="reveal-item text-[#F0EBE1] text-6xl md:text-[10vw] font-headline font-bold uppercase leading-none tracking-tightest">
+              {title}<span className="text-[#C8FF00]">.</span>
             </h1>
           </div>
         </div>
