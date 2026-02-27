@@ -7,10 +7,14 @@ import { Menu, X } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 import { LangToggle } from './LangToggle';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '@/context/LanguageContext';
+import { translations } from '@/data/translations';
 
 export const Navbar = () => {
   const navRef = useRef<HTMLElement>(null);
   const [isOpen, setIsOpen] = useState(false);
+  const { language } = useLanguage();
+  const t = translations[language].nav;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -54,18 +58,22 @@ export const Navbar = () => {
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, target: string) => {
     if (isOpen) setIsOpen(false);
     
-    // Si es un link interno (empieza con #)
     if (target.startsWith('#')) {
       e.preventDefault();
       const element = document.querySelector(target);
       if (element) {
-        // Un pequeño delay para dejar que el menú mobile se cierre antes de scrollear
         setTimeout(() => {
           element.scrollIntoView({ behavior: 'smooth' });
         }, isOpen ? 500 : 0);
       }
     }
   };
+
+  const navLinks = [
+    { name: t.projects, id: '#proyectos' },
+    { name: t.about, id: '#sobre' },
+    { name: t.contact, id: '#contacto' }
+  ];
 
   return (
     <>
@@ -84,14 +92,14 @@ export const Navbar = () => {
             <LangToggle />
             <ThemeToggle />
           </div>
-          {['Proyectos', 'Sobre mí', 'Contacto'].map((item) => (
+          {navLinks.map((item) => (
             <Link
-              key={item}
-              href={item === 'Proyectos' ? '#proyectos' : item === 'Sobre mí' ? '#sobre' : '#contacto'}
-              onClick={(e) => handleNavClick(e, item === 'Proyectos' ? '#proyectos' : item === 'Sobre mí' ? '#sobre' : '#contacto')}
+              key={item.id}
+              href={item.id}
+              onClick={(e) => handleNavClick(e, item.id)}
               className="nav-item text-[12px] font-bold hover:text-accent transition-colors tracking-widest uppercase"
             >
-              {item}
+              {item.name}
             </Link>
           ))}
         </div>
@@ -119,9 +127,9 @@ export const Navbar = () => {
             >
               <X className="w-8 h-8" />
             </button>
-            {['Proyectos', 'Sobre mí', 'Contacto'].map((item, i) => (
+            {navLinks.map((item, i) => (
               <motion.div
-                key={item}
+                key={item.id}
                 initial={{ y: 50, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.2 + i * 0.1 }}
@@ -131,11 +139,11 @@ export const Navbar = () => {
                   className="overflow-hidden"
                 >
                   <Link
-                    href={item === 'Proyectos' ? '#proyectos' : item === 'Sobre mí' ? '#sobre' : '#contacto'}
-                    onClick={(e) => handleNavClick(e, item === 'Proyectos' ? '#proyectos' : item === 'Sobre mí' ? '#sobre' : '#contacto')}
+                    href={item.id}
+                    onClick={(e) => handleNavClick(e, item.id)}
                     className="text-5xl font-headline font-bold tracking-tightest hover:text-accent transition-colors uppercase block"
                   >
-                    {item}
+                    {item.name}
                   </Link>
                 </motion.div>
               </motion.div>

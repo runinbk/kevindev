@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useRef } from 'react';
@@ -6,15 +5,18 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { projects } from '@/data/projects';
 import { ProjectCard } from './ProjectCard';
+import { useLanguage } from '@/context/LanguageContext';
+import { translations } from '@/data/translations';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const ProjectsSection = () => {
   const containerRef = useRef<HTMLElement>(null);
+  const { language } = useLanguage();
+  const t = translations[language].projects;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Title reveal
       gsap.from(".projects-title-char", {
         scrollTrigger: {
           trigger: ".projects-title",
@@ -26,7 +28,6 @@ export const ProjectsSection = () => {
         ease: "power4.out"
       });
 
-      // Cards staggered entrance
       gsap.from(".project-card-wrapper", {
         scrollTrigger: {
           trigger: ".projects-grid",
@@ -41,19 +42,19 @@ export const ProjectsSection = () => {
     }, containerRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [language]);
 
   return (
     <section id="proyectos" ref={containerRef} className="py-32 px-6 md:px-12 bg-background">
       <div className="max-w-7xl mx-auto">
         <div className="mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8">
-          <h2 className="projects-title text-2xl md:text-4xl font-headline font-extrabold tracking-tightest uppercase overflow-hidden">
-            {"PROYECTOS".split("").map((char, i) => (
+          <h2 className="projects-title text-xl md:text-2xl font-headline font-extrabold tracking-tightest uppercase overflow-hidden">
+            {t.title.split("").map((char, i) => (
               <span key={i} className="projects-title-char inline-block">{char}</span>
             ))}<span className="text-accent">.</span>
           </h2>
           <p className="text-muted-foreground text-sm md:text-base max-w-sm leading-relaxed">
-            Una selección curada de trabajos que desafían la norma visual y funcional.
+            {t.subtitle}
           </p>
         </div>
 

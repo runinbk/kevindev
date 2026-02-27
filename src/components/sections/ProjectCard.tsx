@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from 'react';
@@ -7,6 +6,7 @@ import Image from 'next/image';
 import { ArrowUpRight } from 'lucide-react';
 import { Project } from '@/data/projects';
 import { cn } from '@/lib/utils';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface ProjectCardProps {
   project: Project;
@@ -14,6 +14,10 @@ interface ProjectCardProps {
 
 export const ProjectCard = ({ project }: ProjectCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
+  const { language } = useLanguage();
+  
+  const title = language === 'es' ? project.title : project.titleEn;
+  const categories = language === 'es' ? project.category : project.categoryEn;
 
   return (
     <Link 
@@ -25,7 +29,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
       <div className="absolute inset-0 z-0 transition-transform duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110">
         <Image
           src={project.thumbnail}
-          alt={project.title}
+          alt={title}
           fill
           className="object-cover opacity-70 group-hover:opacity-100 transition-opacity duration-700"
           sizes="(max-width: 768px) 100vw, 50vw"
@@ -34,16 +38,15 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
 
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10 opacity-60 group-hover:opacity-90 transition-opacity duration-500" />
 
-      {/* Etiqueta de año - Color sincronizado: Crema en Light, Lima en Dark */}
       <div className="absolute top-8 left-8 z-20">
-        <span className="text-[11px] font-bold tracking-[0.2em] uppercase bg-background dark:bg-accent text-foreground dark:text-black backdrop-blur-md px-3 py-1.5 border border-border/50">
+        <span className="text-[11px] font-bold tracking-[0.2em] uppercase bg-accent dark:bg-accent text-black dark:text-black backdrop-blur-md px-3 py-1.5 border border-border/50">
           {project.year}
         </span>
       </div>
 
       <div className="absolute bottom-0 left-0 w-full p-8 z-20 flex flex-col gap-2">
         <div className="flex flex-wrap gap-2 mb-2">
-          {project.category.map((cat, i) => (
+          {categories.map((cat, i) => (
             <span 
               key={cat} 
               className={cn(
@@ -59,15 +62,14 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
         
         <div className="flex items-end justify-between">
           <h3 className="text-3xl md:text-4xl font-headline font-bold uppercase tracking-tightest leading-none text-white">
-            {project.title}
+            {title}
           </h3>
-          {/* Botón Flecha - Color sincronizado: Crema en Light, Lima en Dark */}
           <div className={cn(
             "w-12 h-12 rounded-full flex items-center justify-center transition-all duration-500 border border-white/20",
-            "bg-background dark:bg-accent",
+            "bg-accent dark:bg-accent",
             isHovered ? "scale-100 rotate-0" : "scale-0 rotate-45"
           )}>
-            <ArrowUpRight className="w-6 h-6 text-foreground dark:text-black" />
+            <ArrowUpRight className="w-6 h-6 text-black dark:text-black" />
           </div>
         </div>
       </div>

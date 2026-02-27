@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState } from 'react';
@@ -9,6 +8,7 @@ import { CustomCursor } from '@/components/CustomCursor';
 import { SmoothScroll } from '@/components/SmoothScroll';
 import { PageTransition } from '@/components/PageTransition';
 import { Preloader } from '@/components/Preloader';
+import { LanguageProvider } from '@/context/LanguageContext';
 
 export default function RootLayout({
   children,
@@ -32,7 +32,6 @@ export default function RootLayout({
           message?.includes('chrome-extension') ||
           message?.includes('Failed to connect to MetaMask')
         ) {
-          // Prevent the error from reaching the Next.js dev overlay
           e.stopImmediatePropagation();
           if (e.preventDefault) e.preventDefault();
         }
@@ -41,7 +40,6 @@ export default function RootLayout({
       window.addEventListener('error', handleError, true);
       window.addEventListener('unhandledrejection', handleError, true);
       
-      // Monkey patch console.error to silence extension noise
       const originalError = console.error;
       console.error = (...args) => {
         const msg = args[0];
@@ -68,17 +66,19 @@ export default function RootLayout({
         <title>Kevin Gómez — Desarrollador Web</title>
       </head>
       <body className="antialiased overflow-x-hidden">
-        <Preloader onComplete={() => setLoading(false)} />
-        {!loading && (
-          <SmoothScroll>
-            <CustomCursor />
-            <Navbar />
-            <PageTransition>
-              <main>{children}</main>
-            </PageTransition>
-            <Footer />
-          </SmoothScroll>
-        )}
+        <LanguageProvider>
+          <Preloader onComplete={() => setLoading(false)} />
+          {!loading && (
+            <SmoothScroll>
+              <CustomCursor />
+              <Navbar />
+              <PageTransition>
+                <main>{children}</main>
+              </PageTransition>
+              <Footer />
+            </SmoothScroll>
+          )}
+        </LanguageProvider>
       </body>
     </html>
   );
