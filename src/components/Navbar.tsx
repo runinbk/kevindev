@@ -5,6 +5,8 @@ import Link from 'next/link';
 import gsap from 'gsap';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { ThemeToggle } from './ThemeToggle';
+import { LangToggle } from './LangToggle';
 
 export const Navbar = () => {
   const navRef = useRef<HTMLElement>(null);
@@ -12,21 +14,33 @@ export const Navbar = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from(".nav-item", {
-        y: -20,
+      const tl = gsap.timeline({ delay: 0.5 });
+      
+      tl.from(".nav-logo", {
+        x: -30,
         opacity: 0,
         duration: 0.8,
+        ease: "power4.out"
+      })
+      .from(".nav-item", {
+        y: -20,
+        opacity: 0,
+        duration: 0.6,
         stagger: 0.1,
-        ease: "power4.out",
-        delay: 0.5
-      });
+        ease: "power4.out"
+      }, "-=0.4")
+      .from(".nav-toggles", {
+        opacity: 0,
+        duration: 0.6,
+        ease: "power2.out"
+      }, "-=0.4");
     });
 
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        navRef.current?.classList.add('bg-black/80', 'backdrop-blur-md', 'border-b', 'border-white/10');
+      if (window.scrollY > 80) {
+        navRef.current?.classList.add('bg-background/80', 'backdrop-blur-xl', 'border-b', 'border-border');
       } else {
-        navRef.current?.classList.remove('bg-black/80', 'backdrop-blur-md', 'border-b', 'border-white/10');
+        navRef.current?.classList.remove('bg-background/80', 'backdrop-blur-xl', 'border-b', 'border-border');
       }
     };
 
@@ -41,20 +55,24 @@ export const Navbar = () => {
     <>
       <nav
         ref={navRef}
-        className="fixed top-0 left-0 w-full z-50 py-6 transition-all duration-300 px-6 md:px-12 flex items-center justify-between"
+        className="fixed top-0 left-0 w-full z-50 py-6 px-6 md:px-12 flex items-center justify-between transition-all duration-300"
       >
-        <Link href="/" className="nav-item group flex items-center gap-1">
-          <span className="font-headline font-bold text-2xl tracking-tight">
+        <Link href="/" className="nav-logo group flex items-center gap-1">
+          <span className="font-headline font-bold text-xl tracking-tight">
             Kevin Gómez<span className="text-accent">.</span>
           </span>
         </Link>
 
-        <div className="hidden md:flex items-center gap-10">
-          {['Proyectos', 'Sobre mí', 'Contacto'].map((item, i) => (
+        <div className="hidden md:flex items-center gap-8">
+          <div className="nav-toggles flex items-center gap-4 mr-8 pr-8 border-r border-border">
+            <LangToggle />
+            <ThemeToggle />
+          </div>
+          {['Proyectos', 'Sobre mí', 'Contacto'].map((item) => (
             <Link
               key={item}
               href={item === 'Proyectos' ? '#proyectos' : item === 'Sobre mí' ? '#sobre' : '#contacto'}
-              className="nav-item text-sm font-medium hover:text-accent transition-colors tracking-widest uppercase"
+              className="nav-item text-[12px] font-bold hover:text-accent transition-colors tracking-widest uppercase"
             >
               {item}
             </Link>
@@ -72,12 +90,9 @@ export const Navbar = () => {
       {/* Mobile Menu Overlay */}
       <div
         className={cn(
-          "fixed inset-0 bg-background z-[100] flex flex-col items-center justify-center gap-8 transition-all duration-500 ease-[cubic-bezier(0.85,0,0.15,1)]",
-          isOpen ? "clip-path-open" : "clip-path-closed"
+          "fixed inset-0 bg-background z-[100] flex flex-col items-center justify-center gap-8 transition-all duration-700 ease-[cubic-bezier(0.85,0,0.15,1)]",
+          isOpen ? "translate-y-0" : "-translate-y-full"
         )}
-        style={{
-          clipPath: isOpen ? 'inset(0 0 0 0)' : 'inset(0 0 100% 0)'
-        }}
       >
         <button 
           className="absolute top-8 right-8 p-2"
@@ -90,11 +105,15 @@ export const Navbar = () => {
             key={item}
             href={item === 'Proyectos' ? '#proyectos' : item === 'Sobre mí' ? '#sobre' : '#contacto'}
             onClick={() => setIsOpen(false)}
-            className="text-4xl font-headline font-bold tracking-tighter hover:text-accent transition-colors"
+            className="text-5xl font-headline font-bold tracking-tightest hover:text-accent transition-colors uppercase"
           >
             {item}
           </Link>
         ))}
+        <div className="mt-12 flex gap-6">
+          <ThemeToggle />
+          <LangToggle />
+        </div>
       </div>
     </>
   );

@@ -1,39 +1,34 @@
-
 "use client";
 
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { Github, Linkedin, Instagram, ArrowDown } from 'lucide-react';
+import { Marquee } from '../Marquee';
 
 export const HeroSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const rotatingTextRef = useRef<HTMLSpanElement>(null);
   const words = ["Desarrollo Web", "E-commerce", "Landing Pages", "Apps Web", "UI / UX", "Coding"];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline();
+      const tl = gsap.timeline({ delay: 0.2 });
 
-      // Split text simulation
+      // Entry animations
       tl.from(".hero-label", {
-        y: 20,
+        y: 40,
         opacity: 0,
-        duration: 0.6,
-        ease: "power2.out"
-      })
-      .from(".hero-title-1 span", {
-        y: 120,
-        stagger: 0.05,
         duration: 0.8,
         ease: "power4.out"
-      }, "-=0.2")
-      .from(".hero-title-2 span", {
-        y: 120,
-        stagger: 0.05,
-        duration: 0.8,
+      })
+      .from(".hero-char", {
+        yPercent: 110,
+        stagger: 0.03,
+        duration: 1,
         ease: "power4.out"
       }, "-=0.6")
       .from(".hero-desc", {
-        y: 20,
+        y: 30,
         opacity: 0,
         duration: 0.8,
         ease: "power3.out"
@@ -50,44 +45,56 @@ export const HeroSection = () => {
         duration: 1
       }, "-=0.4");
 
-      // Rotating text logic
+      // Word rotation logic
       const rotationTl = gsap.timeline({ repeat: -1 });
       words.forEach((word) => {
         rotationTl
-          .fromTo(".rotating-text", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" })
-          .set(".rotating-text", { textContent: word })
-          .to(".rotating-text", { y: -30, opacity: 0, duration: 0.5, ease: "power2.in", delay: 1.5 });
+          .fromTo(rotatingTextRef.current, 
+            { y: 30, opacity: 0 }, 
+            { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" })
+          .set(rotatingTextRef.current, { textContent: word })
+          .to(rotatingTextRef.current, 
+            { y: -30, opacity: 0, duration: 0.5, ease: "power2.in", delay: 2 });
       });
 
-      // Scroll arrow bounce
-      gsap.to(".scroll-arrow", {
-        y: 10,
-        repeat: -1,
-        yoyo: true,
-        duration: 0.8,
-        ease: "power1.inOut"
-      });
+      // Parallax effect on mouse move
+      const onMouseMove = (e: MouseEvent) => {
+        const { clientX, clientY } = e;
+        const xPos = (clientX - window.innerWidth / 2) * 0.02;
+        const yPos = (clientY - window.innerHeight / 2) * 0.02;
+
+        gsap.to(".hero-title-parallax", {
+          x: xPos,
+          y: yPos,
+          duration: 1,
+          ease: "power2.out"
+        });
+      };
+
+      window.addEventListener('mousemove', onMouseMove);
+
+      return () => window.removeEventListener('mousemove', onMouseMove);
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative min-h-[100svh] flex flex-col justify-center px-6 md:px-12 pt-20">
+    <section ref={sectionRef} className="relative min-h-[100svh] flex flex-col justify-center px-6 md:px-12 pt-20 overflow-hidden">
       <div className="max-w-7xl mx-auto w-full">
-        <span className="hero-label block text-xs md:text-sm font-medium tracking-[0.2em] uppercase text-muted mb-8">
-          Desarrollador Web · Santa Cruz, Bolivia
+        <span className="hero-label block text-[11px] font-bold tracking-[0.2em] uppercase text-muted-foreground mb-8">
+          DESARROLLADOR WEB · SANTA CRUZ, BOLIVIA
         </span>
 
-        <h1 className="hero-title leading-[0.85] tracking-tightest mb-10 overflow-hidden">
-          <div className="hero-title-1 flex overflow-hidden">
-            {"Kevin".split("").map((char, i) => (
-              <span key={i} className="inline-block text-[15vw] md:text-[10vw] font-headline font-bold uppercase">{char}</span>
+        <h1 className="hero-title leading-[0.85] tracking-tightest mb-10 hero-title-parallax">
+          <div className="flex overflow-hidden">
+            {"KEVIN".split("").map((char, i) => (
+              <span key={i} className="hero-char inline-block text-[var(--text-hero)] font-headline font-extrabold uppercase">{char}</span>
             ))}
           </div>
-          <div className="hero-title-2 flex overflow-hidden">
-            {"Gómez.".split("").map((char, i) => (
-              <span key={i} className="inline-block text-[15vw] md:text-[10vw] font-headline font-bold uppercase text-accent">{char}</span>
+          <div className="flex overflow-hidden">
+            {"GÓMEZ.".split("").map((char, i) => (
+              <span key={i} className="hero-char inline-block text-[var(--text-hero)] font-headline font-extrabold uppercase text-accent">{char}</span>
             ))}
           </div>
         </h1>
@@ -95,30 +102,36 @@ export const HeroSection = () => {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-10">
           <div className="max-w-xl">
             <div className="h-8 overflow-hidden mb-4">
-              <span className="rotating-text block text-xl md:text-2xl font-semibold text-white"></span>
+              <span ref={rotatingTextRef} className="block text-xl md:text-2xl font-semibold text-foreground"></span>
             </div>
             <p className="hero-desc text-lg md:text-xl text-muted-foreground leading-relaxed">
               Construyo experiencias digitales que conectan marcas con sus audiencias. Cada proyecto es único y enfocado en el impacto visual y funcional.
             </p>
           </div>
 
-          <div className="flex items-center gap-6">
-            <a href="#" className="hero-social group p-3 border border-white/10 rounded-full hover:bg-accent transition-all duration-300">
+          <div className="flex items-center gap-4">
+            <a href="#" className="hero-social group p-4 border border-border rounded-full hover:bg-accent transition-all duration-500">
               <Github className="w-5 h-5 group-hover:text-black transition-colors" />
             </a>
-            <a href="#" className="hero-social group p-3 border border-white/10 rounded-full hover:bg-accent transition-all duration-300">
+            <a href="#" className="hero-social group p-4 border border-border rounded-full hover:bg-accent transition-all duration-500">
               <Linkedin className="w-5 h-5 group-hover:text-black transition-colors" />
             </a>
-            <a href="#" className="hero-social group p-3 border border-white/10 rounded-full hover:bg-accent transition-all duration-300">
+            <a href="#" className="hero-social group p-4 border border-border rounded-full hover:bg-accent transition-all duration-500">
               <Instagram className="w-5 h-5 group-hover:text-black transition-colors" />
             </a>
           </div>
         </div>
       </div>
 
+      <div className="mt-24">
+        <Marquee text="DESARROLLO WEB · LANDING PAGES · E-COMMERCE · APPS · UI/UX · CODING · " />
+      </div>
+
       <div className="scroll-indicator absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-        <span className="text-[10px] uppercase tracking-widest text-muted">Scroll</span>
-        <ArrowDown className="scroll-arrow w-4 h-4 text-accent" />
+        <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground">Scroll</span>
+        <div className="w-[1px] h-12 bg-border relative overflow-hidden">
+          <div className="scroll-line absolute top-0 left-0 w-full h-full bg-accent origin-top"></div>
+        </div>
       </div>
     </section>
   );

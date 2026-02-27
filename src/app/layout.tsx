@@ -1,35 +1,31 @@
-
 "use client";
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './globals.css';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { CustomCursor } from '@/components/CustomCursor';
 import { SmoothScroll } from '@/components/SmoothScroll';
 import { PageTransition } from '@/components/PageTransition';
+import { Preloader } from '@/components/Preloader';
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    // Interceptor global para ignorar ruidos de extensiones de navegador (MetaMask, etc)
+    // Theme initialization
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+
+    // Suppress noise from extensions
     const handleError = (e: ErrorEvent | PromiseRejectionEvent) => {
       const message = (e instanceof ErrorEvent) ? e.message : (e.reason?.message || '');
-      const filename = (e instanceof ErrorEvent) ? e.filename : '';
-
-      const isExtensionError = 
-        message?.includes('MetaMask') || 
-        message?.includes('eth_') ||
-        message?.includes('ERR_BLOCKED_BY_CLIENT') ||
-        filename?.includes('extension') ||
-        filename?.includes('inpage.js');
-
-      if (isExtensionError) {
+      if (message?.includes('MetaMask') || message?.includes('extension')) {
         e.stopImmediatePropagation();
-        // Evita que Next.js muestre el error en el overlay de desarrollo
         if (e.preventDefault) e.preventDefault();
       }
     };
@@ -48,18 +44,21 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
         <title>Kevin Gómez — Desarrollador Web</title>
       </head>
-      <body className="font-body antialiased selection:bg-accent selection:text-black">
-        <SmoothScroll>
-          <CustomCursor />
-          <Navbar />
-          <PageTransition>
-            <main>{children}</main>
-          </PageTransition>
-          <Footer />
-        </SmoothScroll>
+      <body className="antialiased overflow-x-hidden">
+        <Preloader onComplete={() => setLoading(false)} />
+        {!loading && (
+          <SmoothScroll>
+            <CustomCursor />
+            <Navbar />
+            <PageTransition>
+              <main>{children}</main>
+            </PageTransition>
+            <Footer />
+          </SmoothScroll>
+        )}
       </body>
     </html>
   );

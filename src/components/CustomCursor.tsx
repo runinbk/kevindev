@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useRef, useState } from 'react';
@@ -7,10 +6,11 @@ import { cn } from '@/lib/utils';
 export const CustomCursor = () => {
   const mainCursor = useRef<HTMLDivElement>(null);
   const secondaryCursor = useRef<HTMLDivElement>(null);
-  const [hovered, setHovered] = useState(false);
+  const [state, setState] = useState<'default' | 'hover' | 'project'>('default');
 
   useEffect(() => {
-    // Add class to body to enable cursor: none logic in CSS
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+
     document.body.classList.add('cursor-active');
 
     const onMouseMove = (e: MouseEvent) => {
@@ -30,40 +30,48 @@ export const CustomCursor = () => {
       }
     };
 
-    const onHoverStart = () => setHovered(true);
-    const onHoverEnd = () => setHovered(false);
+    const handleHoverStart = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.closest('a, button, .interactive')) {
+        setState('hover');
+      }
+      if (target.closest('.project-card-wrapper')) {
+        setState('project');
+      }
+    };
+
+    const handleHoverEnd = () => setState('default');
 
     window.addEventListener('mousemove', onMouseMove);
-    
-    const interactables = document.querySelectorAll('a, button, [role="button"], .interactive');
-    interactables.forEach((el) => {
-      el.addEventListener('mouseenter', onHoverStart);
-      el.addEventListener('mouseleave', onHoverEnd);
-    });
+    window.addEventListener('mouseover', handleHoverStart);
+    window.addEventListener('mouseout', handleHoverEnd);
 
     return () => {
       document.body.classList.remove('cursor-active');
       window.removeEventListener('mousemove', onMouseMove);
-      interactables.forEach((el) => {
-        el.removeEventListener('mouseenter', onHoverStart);
-        el.removeEventListener('mouseleave', onHoverEnd);
-      });
+      window.removeEventListener('mouseover', handleHoverStart);
+      window.removeEventListener('mouseout', handleHoverEnd);
     };
   }, []);
 
   return (
-    <div className="hidden md:block pointer-events-none fixed inset-0 z-[999]">
+    <div className="hidden md:block pointer-events-none fixed inset-0 z-[9999] mix-blend-difference">
       <div
         ref={mainCursor}
-        className="fixed top-0 left-0 w-2 h-2 -ml-1 -mt-1 bg-accent rounded-full transition-transform duration-100 ease-out"
+        className="fixed top-0 left-0 w-2 h-2 -ml-1 -mt-1 bg-white rounded-full transition-transform duration-100 ease-out"
       />
       <div
         ref={secondaryCursor}
         className={cn(
-          "fixed top-0 left-0 w-10 h-10 -ml-5 -mt-5 border border-accent/50 rounded-full transition-all duration-300 ease-out",
-          hovered ? "scale-[2] bg-accent/10 border-accent" : "scale-100"
+          "fixed top-0 left-0 w-10 h-10 -ml-5 -mt-5 border border-white/50 rounded-full transition-all duration-300 ease-out flex items-center justify-center",
+          state === 'hover' && "scale-[2.5] bg-white border-white",
+          state === 'project' && "scale-[3.5] bg-white border-white"
         )}
-      />
+      >
+        {state === 'project' && (
+          <span className="text-[3px] font-bold uppercase text-black tracking-widest scale-100">Ver →</span>
+        )}
+      </div>
     </div>
   );
 };

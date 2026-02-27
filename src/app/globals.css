@@ -1,79 +1,86 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: 0 0% 4%;
-  --foreground: 0 0% 96%;
-  --card: 0 0% 7%;
-  --card-foreground: 0 0% 96%;
-  --popover: 0 0% 7%;
-  --popover-foreground: 0 0% 96%;
-  --primary: 0 0% 96%;
-  --primary-foreground: 0 0% 4%;
-  --secondary: 0 0% 10%;
-  --secondary-foreground: 0 0% 96%;
-  --muted: 0 0% 53%;
-  --muted-foreground: 0 0% 53%;
-  --accent: 65 100% 50%;
-  --accent-foreground: 0 0% 4%;
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 0 0% 98%;
-  --border: 0 0% 13%;
-  --input: 0 0% 13%;
-  --ring: 65 100% 50%;
-  --radius: 0rem;
+  /* MODO DARK (Default) */
+  --bg: #0C0C0C;
+  --bg-alt: #141414;
+  --bg-surface: #1C1C1C;
+  --text-primary: #F0EBE1;
+  --text-muted: #6B6560;
+  --text-label: #9C9189;
+  --accent: #C8FF00;
+  --accent-hover: #B8EF00;
+  --border: #242424;
+  --overlay: rgba(12, 12, 12, 0.85);
+  
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+
+  /* Fluid Typography */
+  --text-hero: clamp(64px, 12vw, 160px);
+  --text-h1: clamp(48px, 7vw, 96px);
+  --text-h2: clamp(36px, 5vw, 64px);
+  --text-h3: clamp(24px, 3vw, 36px);
+  --text-body: clamp(15px, 1.2vw, 18px);
+}
+
+[data-theme="light"] {
+  --bg: #F5F0E8;
+  --bg-alt: #EDE8DF;
+  --bg-surface: #E5E0D6;
+  --text-primary: #0C0C0C;
+  --text-muted: #7A7268;
+  --text-label: #9C9189;
+  --accent: #0C0C0C;
+  --accent-hover: #2A2A2A;
+  --border: #D8D2C8;
+  --overlay: rgba(245, 240, 232, 0.85);
 }
 
 @layer base {
   * {
     @apply border-border;
+    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
   }
   
   body {
-    @apply bg-background text-foreground overflow-x-hidden antialiased selection:bg-accent selection:text-accent-foreground;
+    @apply bg-background text-foreground antialiased selection:bg-accent selection:text-black;
+    font-family: var(--font-body);
     font-feature-settings: "ss01", "ss02", "cv01", "cv02";
   }
 
-  /* Only hide cursor on non-mobile when component is mounted */
-  @media (min-width: 769px) {
-    body.cursor-active, 
-    body.cursor-active * {
-      cursor: none !important;
-    }
-  }
-  
   h1, h2, h3, h4, h5, h6 {
-    @apply font-headline font-bold tracking-tighter;
+    font-family: var(--font-display);
+    @apply font-bold tracking-tighter;
   }
+}
+
+/* Custom Utilities */
+.tracking-tightest { letter-spacing: -0.05em; }
+.tracking-label { letter-spacing: 0.15em; text-transform: uppercase; font-size: 11px; font-weight: 700; }
+
+/* Lenis smooth scroll */
+html.lenis { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* Cursor none logic */
+@media (min-width: 769px) {
+  body.cursor-active, 
+  body.cursor-active * {
+    cursor: none !important;
+  }
+}
+
+/* Animations Helpers */
+.clip-path-reveal {
+  clip-path: inset(100% 0 0 0);
 }
 
 .text-reveal-container {
   overflow: hidden;
-}
-
-.text-reveal-line {
   display: block;
-}
-
-/* Lenis smooth scroll */
-html.lenis {
-  height: auto;
-}
-
-.lenis.lenis-smooth {
-  scroll-behavior: auto;
-}
-
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-
-.lenis.lenis-scrolling iframe {
-  pointer-events: none;
 }
