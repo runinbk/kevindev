@@ -69,11 +69,9 @@ export default function ProjectDetailPage() {
         />
         <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-12">
           <div className="max-w-7xl mx-auto w-full">
-            {/* Se fuerza el color lima para las categorías sobre el fondo oscuro */}
             <span className="reveal-item block text-[#C8FF00] font-bold uppercase tracking-[0.3em] text-sm mb-4">
               {categories.join(" — ")} · {project.year}
             </span>
-            {/* Se fuerza un color crema suave (blanco no brillante) para el título sobre el fondo oscuro */}
             <h1 className="reveal-item text-[#F0EBE1] text-6xl md:text-[10vw] font-headline font-bold uppercase leading-none tracking-tightest">
               {title}<span className="text-[#C8FF00]">.</span>
             </h1>
@@ -98,7 +96,7 @@ export default function ProjectDetailPage() {
         </div>
 
         <div className="lg:col-span-4 space-y-12">
-          <div className="reveal-item p-8 border border-white/10 bg-secondary/30">
+          <div className="reveal-item p-8 border border-border bg-secondary/30">
             <h3 className="text-xs uppercase tracking-widest text-muted-foreground mb-4">{t.tech}</h3>
             <div className="flex flex-wrap gap-2">
               {project.techStack.map((tech) => (
@@ -113,7 +111,7 @@ export default function ProjectDetailPage() {
             <a 
               href={project.liveUrl} 
               target="_blank" 
-              className="group flex items-center justify-between p-8 bg-accent text-black font-bold uppercase tracking-widest hover:brightness-110 transition-all"
+              className="group flex items-center justify-between p-8 bg-accent text-accent-foreground font-bold uppercase tracking-widest hover:brightness-110 transition-all"
             >
               <span>{t.live}</span>
               <ExternalLink className="w-6 h-6" />
