@@ -10,6 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export const SmoothScroll = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
+    // Inicialización de Lenis para scroll suave
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -20,6 +21,7 @@ export const SmoothScroll = ({ children }: { children: ReactNode }) => {
       touchMultiplier: 2,
     });
 
+    // Sincronización con ScrollTrigger de GSAP
     lenis.on('scroll', ScrollTrigger.update);
 
     gsap.ticker.add((time) => {
@@ -33,6 +35,8 @@ export const SmoothScroll = ({ children }: { children: ReactNode }) => {
       gsap.ticker.remove((time) => {
         lenis.raf(time * 1000);
       });
+      // Limpiar instancias de ScrollTrigger al desmontar
+      ScrollTrigger.getAll().forEach(t => t.kill());
     };
   }, []);
 

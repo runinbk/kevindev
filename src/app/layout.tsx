@@ -15,18 +15,32 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   useEffect(() => {
-    // Safety check to ignore errors from browser extensions like MetaMask
-    const handleError = (e: ErrorEvent) => {
-      if (
-        e.message?.includes('MetaMask') || 
-        e.filename?.includes('extension') ||
-        e.message?.includes('eth_')
-      ) {
+    // Interceptor global para ignorar ruidos de extensiones de navegador (MetaMask, etc)
+    const handleError = (e: ErrorEvent | PromiseRejectionEvent) => {
+      const message = (e instanceof ErrorEvent) ? e.message : (e.reason?.message || '');
+      const filename = (e instanceof ErrorEvent) ? e.filename : '';
+
+      const isExtensionError = 
+        message?.includes('MetaMask') || 
+        message?.includes('eth_') ||
+        message?.includes('ERR_BLOCKED_BY_CLIENT') ||
+        filename?.includes('extension') ||
+        filename?.includes('inpage.js');
+
+      if (isExtensionError) {
         e.stopImmediatePropagation();
+        // Evita que Next.js muestre el error en el overlay de desarrollo
+        if (e.preventDefault) e.preventDefault();
       }
     };
-    window.addEventListener('error', handleError);
-    return () => window.removeEventListener('error', handleError);
+
+    window.addEventListener('error', handleError, true);
+    window.addEventListener('unhandledrejection', handleError, true);
+    
+    return () => {
+      window.removeEventListener('error', handleError, true);
+      window.removeEventListener('unhandledrejection', handleError, true);
+    };
   }, []);
 
   return (
