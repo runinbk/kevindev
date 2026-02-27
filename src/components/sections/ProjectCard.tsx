@@ -19,7 +19,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
       href={`/trabajo/${project.slug}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group block relative aspect-[4/5] overflow-hidden bg-bg-alt border border-border"
+      className="group block relative aspect-[4/5] overflow-hidden bg-bg-alt border border-border project-card-wrapper"
     >
       <div className="absolute inset-0 z-0 transition-transform duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110">
         <Image
@@ -33,8 +33,9 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
 
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10 opacity-60 group-hover:opacity-90 transition-opacity duration-500" />
 
+      {/* Etiqueta de año - Ajustada para mejor contraste en Light Mode */}
       <div className="absolute top-8 left-8 z-20">
-        <span className="text-[11px] font-bold tracking-[0.2em] text-accent uppercase bg-black/40 backdrop-blur-md px-3 py-1">
+        <span className="text-[11px] font-bold tracking-[0.2em] uppercase bg-background/80 text-foreground backdrop-blur-md px-3 py-1.5 border border-border/50">
           {project.year}
         </span>
       </div>
@@ -56,14 +57,15 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
         </div>
         
         <div className="flex items-end justify-between">
-          <h3 className="text-4xl md:text-5xl font-headline font-bold uppercase tracking-tightest leading-none text-white">
+          <h3 className="text-3xl md:text-4xl font-headline font-bold uppercase tracking-tightest leading-none text-white">
             {project.title}
           </h3>
+          {/* Flecha - Siempre vibrante o de alto contraste */}
           <div className={cn(
-            "w-14 h-14 rounded-full bg-accent flex items-center justify-center transition-all duration-500",
+            "w-12 h-12 rounded-full bg-accent flex items-center justify-center transition-all duration-500 border border-white/20",
             isHovered ? "scale-100 rotate-0" : "scale-0 rotate-45"
           )}>
-            <ArrowUpRight className="w-7 h-7 text-black" />
+            <ArrowUpRight className="w-6 h-6 text-black" />
           </div>
         </div>
       </div>

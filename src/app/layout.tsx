@@ -25,7 +25,12 @@ export default function RootLayout({
     if (process.env.NODE_ENV === 'development') {
       const handleError = (e: ErrorEvent | PromiseRejectionEvent) => {
         const message = (e instanceof ErrorEvent) ? e.message : (e.reason?.message || '');
-        if (message?.includes('MetaMask') || message?.includes('extension') || message?.includes('chrome-extension')) {
+        if (
+          message?.includes('MetaMask') || 
+          message?.includes('extension') || 
+          message?.includes('chrome-extension') ||
+          message?.includes('Failed to connect to MetaMask')
+        ) {
           e.stopImmediatePropagation();
           if (e.preventDefault) e.preventDefault();
         }
@@ -34,9 +39,20 @@ export default function RootLayout({
       window.addEventListener('error', handleError, true);
       window.addEventListener('unhandledrejection', handleError, true);
       
+      // Monkey patch console.error to silence extension noise
+      const originalError = console.error;
+      console.error = (...args) => {
+        const msg = args[0];
+        if (typeof msg === 'string' && (msg.includes('MetaMask') || msg.includes('chrome-extension'))) {
+          return;
+        }
+        originalError.apply(console, args);
+      };
+
       return () => {
         window.removeEventListener('error', handleError, true);
         window.removeEventListener('unhandledrejection', handleError, true);
+        console.error = originalError;
       };
     }
   }, []);

@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import gsap from 'gsap';
 import { Menu, X } from 'lucide-react';
-import { cn } from '@/lib/utils';
 import { ThemeToggle } from './ThemeToggle';
 import { LangToggle } from './LangToggle';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -52,6 +51,22 @@ export const Navbar = () => {
     };
   }, []);
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, target: string) => {
+    if (isOpen) setIsOpen(false);
+    
+    // Si es un link interno (empieza con #)
+    if (target.startsWith('#')) {
+      e.preventDefault();
+      const element = document.querySelector(target);
+      if (element) {
+        // Un pequeño delay para dejar que el menú mobile se cierre antes de scrollear
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, isOpen ? 500 : 0);
+      }
+    }
+  };
+
   return (
     <>
       <nav
@@ -73,6 +88,7 @@ export const Navbar = () => {
             <Link
               key={item}
               href={item === 'Proyectos' ? '#proyectos' : item === 'Sobre mí' ? '#sobre' : '#contacto'}
+              onClick={(e) => handleNavClick(e, item === 'Proyectos' ? '#proyectos' : item === 'Sobre mí' ? '#sobre' : '#contacto')}
               className="nav-item text-[12px] font-bold hover:text-accent transition-colors tracking-widest uppercase"
             >
               {item}
@@ -88,16 +104,14 @@ export const Navbar = () => {
         </button>
       </nav>
 
-      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ clipPath: 'inset(0 0 100% 0)' }}
             animate={{ clipPath: 'inset(0 0 0% 0)' }}
             exit={{ clipPath: 'inset(0 0 100% 0)' }}
-            transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
+            transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
             className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-8 bg-background"
-            style={{ backgroundColor: 'var(--bg)' }}
           >
             <button 
               className="absolute top-8 right-8 p-2"
@@ -112,13 +126,18 @@ export const Navbar = () => {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.2 + i * 0.1 }}
               >
-                <Link
-                  href={item === 'Proyectos' ? '#proyectos' : item === 'Sobre mí' ? '#sobre' : '#contacto'}
-                  onClick={() => setIsOpen(false)}
-                  className="text-5xl font-headline font-bold tracking-tightest hover:text-accent transition-colors uppercase"
+                <motion.div
+                  whileTap={{ scale: 0.9 }}
+                  className="overflow-hidden"
                 >
-                  {item}
-                </Link>
+                  <Link
+                    href={item === 'Proyectos' ? '#proyectos' : item === 'Sobre mí' ? '#sobre' : '#contacto'}
+                    onClick={(e) => handleNavClick(e, item === 'Proyectos' ? '#proyectos' : item === 'Sobre mí' ? '#sobre' : '#contacto')}
+                    className="text-5xl font-headline font-bold tracking-tightest hover:text-accent transition-colors uppercase block"
+                  >
+                    {item}
+                  </Link>
+                </motion.div>
               </motion.div>
             ))}
             <div className="mt-12 flex gap-6">

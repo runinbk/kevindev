@@ -7,8 +7,8 @@
   --bg-alt:       #EDE8DF;
   --bg-surface:   #E5E0D6;
   --text-primary: #0C0C0C;
-  --text-muted:   #7A7268;
-  --text-label:   #9C9189;
+  --text-muted:   #5A5248; /* Un poco más oscuro para mejor contraste en fondo claro */
+  --text-label:   #8C8179;
   --accent:       #0C0C0C;
   --accent-hover: #2A2A2A;
   --border:       #D8D2C8;
@@ -24,8 +24,8 @@
   --primary-foreground: 37 33% 94%;
   --secondary: 37 20% 88%;
   --secondary-foreground: 0 0% 5%;
-  --muted: 37 10% 45%;
-  --muted-foreground: 37 10% 45%;
+  --muted: 37 10% 35%;
+  --muted-foreground: 37 10% 35%;
   --accent: 0 0% 5%;
   --accent-foreground: 37 33% 94%;
   --destructive: 0 84% 60%;
@@ -40,8 +40,8 @@
   --bg-alt:       #141414;
   --bg-surface:   #1C1C1C;
   --text-primary: #F0EBE1;
-  --text-muted:   #6B6560;
-  --text-label:   #9C9189;
+  --text-muted:   #A39C94; /* Aclarado para mejor legibilidad en Dark Mode */
+  --text-label:   #B8B0A8;
   --accent:       #C8FF00;
   --accent-hover: #B8EF00;
   --border:       #242424;
@@ -57,8 +57,8 @@
   --primary-foreground: 0 0% 5%;
   --secondary: 0 0% 11%;
   --secondary-foreground: 37 23% 91%;
-  --muted: 30 5% 40%;
-  --muted-foreground: 30 5% 40%;
+  --muted: 30 5% 60%; /* Aclarado */
+  --muted-foreground: 30 5% 60%; /* Aclarado */
   --accent: 73 100% 50%;
   --accent-foreground: 0 0% 5%;
   --destructive: 0 62% 30%;
