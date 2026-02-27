@@ -21,26 +21,28 @@ export default function RootLayout({
     const savedTheme = localStorage.getItem('theme') || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
 
-    // Suppress noise from extensions
-    const handleError = (e: ErrorEvent | PromiseRejectionEvent) => {
-      const message = (e instanceof ErrorEvent) ? e.message : (e.reason?.message || '');
-      if (message?.includes('MetaMask') || message?.includes('extension')) {
-        e.stopImmediatePropagation();
-        if (e.preventDefault) e.preventDefault();
-      }
-    };
+    // Suppress noise from extensions (MetaMask, etc.)
+    if (process.env.NODE_ENV === 'development') {
+      const handleError = (e: ErrorEvent | PromiseRejectionEvent) => {
+        const message = (e instanceof ErrorEvent) ? e.message : (e.reason?.message || '');
+        if (message?.includes('MetaMask') || message?.includes('extension') || message?.includes('chrome-extension')) {
+          e.stopImmediatePropagation();
+          if (e.preventDefault) e.preventDefault();
+        }
+      };
 
-    window.addEventListener('error', handleError, true);
-    window.addEventListener('unhandledrejection', handleError, true);
-    
-    return () => {
-      window.removeEventListener('error', handleError, true);
-      window.removeEventListener('unhandledrejection', handleError, true);
-    };
+      window.addEventListener('error', handleError, true);
+      window.addEventListener('unhandledrejection', handleError, true);
+      
+      return () => {
+        window.removeEventListener('error', handleError, true);
+        window.removeEventListener('unhandledrejection', handleError, true);
+      };
+    }
   }, []);
 
   return (
-    <html lang="es">
+    <html lang="es" data-theme="dark">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

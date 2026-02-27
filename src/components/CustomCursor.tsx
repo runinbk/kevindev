@@ -17,13 +17,15 @@ export const CustomCursor = () => {
       const { clientX, clientY } = e;
       
       if (mainCursor.current) {
-        mainCursor.current.style.transform = `translate3d(${clientX}px, ${clientY}px, 0)`;
+        mainCursor.current.style.left = `${clientX}px`;
+        mainCursor.current.style.top = `${clientY}px`;
       }
 
       if (secondaryCursor.current) {
         secondaryCursor.current.animate(
           {
-            transform: `translate3d(${clientX}px, ${clientY}px, 0)`,
+            left: `${clientX}px`,
+            top: `${clientY}px`,
           },
           { duration: 400, fill: 'forwards' }
         );
@@ -55,18 +57,20 @@ export const CustomCursor = () => {
   }, []);
 
   return (
-    <div className="hidden md:block pointer-events-none fixed inset-0 z-[9999] mix-blend-difference">
+    <div className="hidden md:block pointer-events-none fixed inset-0 z-[9999]">
       <div
         ref={mainCursor}
-        className="fixed top-0 left-0 w-2 h-2 -ml-1 -mt-1 bg-white rounded-full transition-transform duration-100 ease-out"
+        className="fixed w-2 h-2 bg-white rounded-full -translate-x-1/2 -translate-y-1/2"
+        style={{ mixBlendMode: 'difference' }}
       />
       <div
         ref={secondaryCursor}
         className={cn(
-          "fixed top-0 left-0 w-10 h-10 -ml-5 -mt-5 border border-white/50 rounded-full transition-all duration-300 ease-out flex items-center justify-center",
+          "fixed w-10 h-10 border border-white rounded-full -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ease-out flex items-center justify-center bg-white/10",
           state === 'hover' && "scale-[2.5] bg-white border-white",
           state === 'project' && "scale-[3.5] bg-white border-white"
         )}
+        style={{ mixBlendMode: 'difference' }}
       >
         {state === 'project' && (
           <span className="text-[3px] font-bold uppercase text-black tracking-widest scale-100">Ver →</span>

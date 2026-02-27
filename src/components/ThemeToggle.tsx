@@ -8,9 +8,8 @@ export const ThemeToggle = () => {
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
   useEffect(() => {
-    const saved = localStorage.getItem('theme') as 'dark' | 'light' || 'dark';
-    setTheme(saved);
-    document.documentElement.setAttribute('data-theme', saved);
+    const current = document.documentElement.getAttribute('data-theme') || 'dark';
+    setTheme(current as 'dark' | 'light');
   }, []);
 
   const toggle = () => {

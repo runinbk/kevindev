@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { Github, Linkedin, Instagram, ArrowDown } from 'lucide-react';
+import { Github, Linkedin, Instagram } from 'lucide-react';
 import { Marquee } from '../Marquee';
 
 export const HeroSection = () => {
@@ -39,11 +39,7 @@ export const HeroSection = () => {
         stagger: 0.1,
         duration: 0.8,
         ease: "power3.out"
-      }, "-=0.6")
-      .from(".scroll-indicator", {
-        opacity: 0,
-        duration: 1
-      }, "-=0.4");
+      }, "-=0.6");
 
       // Word rotation logic
       const rotationTl = gsap.timeline({ repeat: -1 });
@@ -81,23 +77,35 @@ export const HeroSection = () => {
 
   return (
     <section ref={sectionRef} className="relative min-h-[100svh] flex flex-col justify-center px-6 md:px-12 pt-20 overflow-hidden">
-      <div className="max-w-7xl mx-auto w-full">
+      <div className="max-w-[95vw] mx-auto w-full">
         <span className="hero-label block text-[11px] font-bold tracking-[0.2em] uppercase text-muted-foreground mb-8">
           DESARROLLADOR WEB · SANTA CRUZ, BOLIVIA
         </span>
 
-        <h1 className="hero-title leading-[0.85] tracking-tightest mb-10 hero-title-parallax">
+        <h1 className="hero-title tracking-tightest mb-10 hero-title-parallax" style={{ 
+          fontSize: 'clamp(96px, 16vw, 220px)',
+          lineHeight: '0.88',
+          letterSpacing: '-0.04em'
+        }}>
           <div className="flex overflow-hidden">
             {"KEVIN".split("").map((char, i) => (
-              <span key={i} className="hero-char inline-block text-[var(--text-hero)] font-headline font-extrabold uppercase">{char}</span>
+              <span key={i} className="hero-char inline-block font-headline font-extrabold uppercase">{char}</span>
             ))}
           </div>
           <div className="flex overflow-hidden">
             {"GÓMEZ.".split("").map((char, i) => (
-              <span key={i} className="hero-char inline-block text-[var(--text-hero)] font-headline font-extrabold uppercase text-accent">{char}</span>
+              <span key={i} className="hero-char inline-block font-headline font-extrabold uppercase text-accent">{char}</span>
             ))}
           </div>
         </h1>
+
+        <style jsx>{`
+          @media (max-width: 768px) {
+            .hero-title {
+              font-size: clamp(72px, 20vw, 110px) !important;
+            }
+          }
+        `}</style>
 
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-10">
           <div className="max-w-xl">

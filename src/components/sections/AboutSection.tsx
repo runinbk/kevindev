@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useRef } from 'react';
@@ -61,7 +60,8 @@ export const AboutSection = () => {
             {skills.map((skill) => (
               <span 
                 key={skill} 
-                className="skill-badge px-6 py-3 border border-white/10 rounded-full text-sm md:text-base font-medium hover:bg-white hover:text-black transition-colors duration-300"
+                className="skill-badge px-6 py-3 border border-border rounded-full text-sm md:text-base font-medium hover:bg-foreground hover:text-background transition-colors duration-300"
+                style={{ borderColor: 'var(--border)', color: 'var(--text-primary)' }}
               >
                 {skill}
               </span>
@@ -70,12 +70,12 @@ export const AboutSection = () => {
 
           <div className="mt-16 grid grid-cols-2 gap-8">
             <div>
-              <span className="block text-4xl md:text-6xl font-headline font-bold text-white mb-2">10+</span>
-              <span className="text-xs uppercase tracking-widest text-muted">Proyectos Completados</span>
+              <span className="block text-4xl md:text-6xl font-headline font-bold mb-2" style={{ color: 'var(--text-primary)' }}>10+</span>
+              <span className="text-xs uppercase tracking-widest" style={{ color: 'var(--text-muted)' }}>Proyectos Completados</span>
             </div>
             <div>
-              <span className="block text-4xl md:text-6xl font-headline font-bold text-white mb-2">4+</span>
-              <span className="text-xs uppercase tracking-widest text-muted">Años de Experiencia</span>
+              <span className="block text-4xl md:text-6xl font-headline font-bold mb-2" style={{ color: 'var(--text-primary)' }}>4+</span>
+              <span className="text-xs uppercase tracking-widest" style={{ color: 'var(--text-muted)' }}>Años de Experiencia</span>
             </div>
           </div>
         </div>

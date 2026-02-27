@@ -51,10 +51,7 @@ export const Footer = () => {
 
         <div className="pt-12 border-t border-border flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="text-[11px] font-bold tracking-[0.2em] uppercase text-muted-foreground">
-            © 2024 KEVIN GÓMEZ — SANTA CRUZ, BOLIVIA
-          </div>
-          <div className="text-[11px] font-bold tracking-[0.2em] uppercase text-muted-foreground">
-            HECHO CON <span className="text-accent">NEXT.JS</span> + <span className="text-accent">GSAP</span>
+            © 2026 KEVIN GÓMEZ — SANTA CRUZ, BOLIVIA
           </div>
         </div>
       </div>

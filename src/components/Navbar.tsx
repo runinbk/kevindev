@@ -7,6 +7,7 @@ import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from './ThemeToggle';
 import { LangToggle } from './LangToggle';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export const Navbar = () => {
   const navRef = useRef<HTMLElement>(null);
@@ -88,33 +89,45 @@ export const Navbar = () => {
       </nav>
 
       {/* Mobile Menu Overlay */}
-      <div
-        className={cn(
-          "fixed inset-0 bg-background z-[100] flex flex-col items-center justify-center gap-8 transition-all duration-700 ease-[cubic-bezier(0.85,0,0.15,1)]",
-          isOpen ? "translate-y-0" : "-translate-y-full"
-        )}
-      >
-        <button 
-          className="absolute top-8 right-8 p-2"
-          onClick={() => setIsOpen(false)}
-        >
-          <X className="w-8 h-8" />
-        </button>
-        {['Proyectos', 'Sobre mí', 'Contacto'].map((item) => (
-          <Link
-            key={item}
-            href={item === 'Proyectos' ? '#proyectos' : item === 'Sobre mí' ? '#sobre' : '#contacto'}
-            onClick={() => setIsOpen(false)}
-            className="text-5xl font-headline font-bold tracking-tightest hover:text-accent transition-colors uppercase"
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ clipPath: 'inset(0 0 100% 0)' }}
+            animate={{ clipPath: 'inset(0 0 0% 0)' }}
+            exit={{ clipPath: 'inset(0 0 100% 0)' }}
+            transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
+            className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-8 bg-background"
+            style={{ backgroundColor: 'var(--bg)' }}
           >
-            {item}
-          </Link>
-        ))}
-        <div className="mt-12 flex gap-6">
-          <ThemeToggle />
-          <LangToggle />
-        </div>
-      </div>
+            <button 
+              className="absolute top-8 right-8 p-2"
+              onClick={() => setIsOpen(false)}
+            >
+              <X className="w-8 h-8" />
+            </button>
+            {['Proyectos', 'Sobre mí', 'Contacto'].map((item, i) => (
+              <motion.div
+                key={item}
+                initial={{ y: 50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.2 + i * 0.1 }}
+              >
+                <Link
+                  href={item === 'Proyectos' ? '#proyectos' : item === 'Sobre mí' ? '#sobre' : '#contacto'}
+                  onClick={() => setIsOpen(false)}
+                  className="text-5xl font-headline font-bold tracking-tightest hover:text-accent transition-colors uppercase"
+                >
+                  {item}
+                </Link>
+              </motion.div>
+            ))}
+            <div className="mt-12 flex gap-6">
+              <ThemeToggle />
+              <LangToggle />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };
