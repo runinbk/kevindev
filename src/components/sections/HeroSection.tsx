@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useRef } from 'react';
@@ -83,15 +84,15 @@ export const HeroSection = () => {
         </span>
 
         <h1 className="hero-title tracking-tightest mb-8 hero-title-parallax" style={{ 
-          fontSize: 'clamp(48px, 10vw, 110px)',
-          lineHeight: '0.95',
-          letterSpacing: '-0.04em'
+          fontSize: 'clamp(32px, 5vw, 48px)',
+          lineHeight: '1.1',
+          letterSpacing: '-0.02em'
         }}>
           <div className="flex flex-wrap overflow-hidden">
             {"KEVIN".split("").map((char, i) => (
               <span key={i} className="hero-char inline-block font-headline font-extrabold uppercase">{char}</span>
             ))}
-            <span className="w-4" />
+            <span className="w-2" />
             {"GÓMEZ.".split("").map((char, i) => (
               <span key={i} className="hero-char inline-block font-headline font-extrabold uppercase text-accent">{char}</span>
             ))}

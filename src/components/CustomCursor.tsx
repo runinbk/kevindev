@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useRef, useState } from 'react';
@@ -56,24 +57,33 @@ export const CustomCursor = () => {
     };
   }, []);
 
+  // Determinar color del cursor basado en el estado
+  // Si está sobre un proyecto, forzamos blanco para visibilidad sobre las imágenes
+  const cursorColor = state === 'project' ? '#FFFFFF' : 'var(--text-primary)';
+
   return (
     <div className="hidden md:block pointer-events-none fixed inset-0 z-[9999]">
+      {/* Punto central */}
       <div
         ref={mainCursor}
-        className="fixed w-2 h-2 rounded-full -translate-x-1/2 -translate-y-1/2"
-        style={{ backgroundColor: 'var(--text-primary)' }}
+        className="fixed w-2 h-2 rounded-full -translate-x-1/2 -translate-y-1/2 transition-colors duration-300"
+        style={{ backgroundColor: cursorColor }}
       />
+      {/* Círculo exterior */}
       <div
         ref={secondaryCursor}
         className={cn(
           "fixed w-10 h-10 border rounded-full -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ease-out flex items-center justify-center",
           state === 'hover' && "scale-[2.5] bg-foreground/5",
-          state === 'project' && "scale-[3.5] bg-accent/20 border-accent"
+          state === 'project' && "scale-[3.5] bg-white/10 border-white"
         )}
-        style={{ borderColor: 'var(--text-primary)', opacity: 0.5 }}
+        style={{ 
+          borderColor: state === 'project' ? '#FFFFFF' : cursorColor,
+          opacity: state === 'project' ? 0.9 : 0.5 
+        }}
       >
         {state === 'project' && (
-          <span className="text-[3px] font-bold uppercase text-foreground tracking-widest scale-100">Ver →</span>
+          <span className="text-[3px] font-bold uppercase text-white tracking-widest scale-100">Ver →</span>
         )}
       </div>
     </div>
