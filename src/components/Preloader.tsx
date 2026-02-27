@@ -32,19 +32,21 @@ export const Preloader = ({ onComplete }: { onComplete: () => void }) => {
         duration: 0.8,
         ease: "power4.out"
       })
-      .to(textRef.current, {
-        scale: 1.1,
-        duration: 0.5,
-        ease: "power2.inOut",
-        yoyo: true,
-        repeat: 1
-      })
-      .to(preloaderRef.current, {
-        yPercent: -100,
-        duration: 1,
-        ease: "power4.inOut",
-        delay: 0.2
-      });
+        .to(textRef.current, {
+          scale: 1.1,
+          duration: 0.5,
+          ease: "power2.inOut",
+          yoyo: true,
+          repeat: 1
+        })
+        // Agregar un tiempo de espera (delay de 2.5s) para que el Preloader dure
+        // un mínimo realista de ~4.5 segundos en total.
+        .to(preloaderRef.current, {
+          yPercent: -100,
+          duration: 1,
+          ease: "power4.inOut",
+          delay: 2.5
+        });
     });
 
     return () => ctx.revert();
@@ -53,7 +55,7 @@ export const Preloader = ({ onComplete }: { onComplete: () => void }) => {
   if (!visible) return null;
 
   return (
-    <div 
+    <div
       ref={preloaderRef}
       className="fixed inset-0 z-[9999] bg-[#0C0C0C] flex items-center justify-center overflow-hidden"
     >

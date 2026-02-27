@@ -3,17 +3,18 @@
 @tailwind utilities;
 
 :root[data-theme="light"] {
-  --bg:           #F5F0E8;
-  --bg-alt:       #EDE8DF;
-  --bg-surface:   #E5E0D6;
+  --bg: #F5F0E8;
+  --bg-alt: #EDE8DF;
+  --bg-surface: #E5E0D6;
   --text-primary: #0C0C0C;
-  --text-muted:   #5A5248; /* Un poco más oscuro para mejor contraste en fondo claro */
-  --text-label:   #8C8179;
-  --accent:       #0C0C0C;
+  --text-muted: #5A5248;
+  /* Un poco más oscuro para mejor contraste en fondo claro */
+  --text-label: #8C8179;
+  --accent: #0C0C0C;
   --accent-hover: #2A2A2A;
-  --border:       #D8D2C8;
-  --overlay:      rgba(245, 240, 232, 0.85);
-  
+  --border: #D8D2C8;
+  --overlay: rgba(245, 240, 232, 0.85);
+
   --background: 37 33% 94%;
   --foreground: 0 0% 5%;
   --card: 37 25% 91%;
@@ -35,17 +36,19 @@
   --ring: 0 0% 5%;
 }
 
-:root[data-theme="dark"], :root {
-  --bg:           #0C0C0C;
-  --bg-alt:       #141414;
-  --bg-surface:   #1C1C1C;
+:root[data-theme="dark"],
+:root {
+  --bg: #0C0C0C;
+  --bg-alt: #141414;
+  --bg-surface: #1C1C1C;
   --text-primary: #F0EBE1;
-  --text-muted:   #A39C94; /* Aclarado para mejor legibilidad en Dark Mode */
-  --text-label:   #B8B0A8;
-  --accent:       #C8FF00;
+  --text-muted: #A39C94;
+  /* Aclarado para mejor legibilidad en Dark Mode */
+  --text-label: #B8B0A8;
+  --accent: #C8FF00;
   --accent-hover: #B8EF00;
-  --border:       #242424;
-  --overlay:      rgba(12, 12, 12, 0.85);
+  --border: #242424;
+  --overlay: rgba(12, 12, 12, 0.85);
 
   --background: 0 0% 5%;
   --foreground: 37 23% 91%;
@@ -57,8 +60,10 @@
   --primary-foreground: 0 0% 5%;
   --secondary: 0 0% 11%;
   --secondary-foreground: 37 23% 91%;
-  --muted: 30 5% 60%; /* Aclarado */
-  --muted-foreground: 30 5% 60%; /* Aclarado */
+  --muted: 30 5% 60%;
+  /* Aclarado */
+  --muted-foreground: 30 5% 60%;
+  /* Aclarado */
   --accent: 73 100% 50%;
   --accent-foreground: 0 0% 5%;
   --destructive: 0 62% 30%;
@@ -73,7 +78,13 @@
     @apply border-border;
     transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
   }
-  
+
+  html,
+  body {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
   body {
     background-color: var(--bg);
     color: var(--text-primary);
@@ -81,26 +92,50 @@
     font-family: var(--font-dm-sans), sans-serif;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-syne), sans-serif;
     @apply font-bold tracking-tighter;
   }
 }
 
-.font-headline { font-family: var(--font-syne), sans-serif; }
-.font-body { font-family: var(--font-dm-sans), sans-serif; }
+.font-headline {
+  font-family: var(--font-syne), sans-serif;
+}
 
-.tracking-tightest { letter-spacing: -0.05em; }
+.font-body {
+  font-family: var(--font-dm-sans), sans-serif;
+}
+
+.tracking-tightest {
+  letter-spacing: -0.05em;
+}
 
 /* Lenis smooth scroll */
-html.lenis { height: auto; }
-.lenis.lenis-smooth { scroll-behavior: auto; }
-.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
-.lenis.lenis-stopped { overflow: hidden; }
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
 
 /* Cursor none logic */
 @media (min-width: 769px) {
-  body.cursor-active, 
+
+  body.cursor-active,
   body.cursor-active * {
     cursor: none !important;
   }

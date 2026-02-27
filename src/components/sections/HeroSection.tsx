@@ -23,25 +23,25 @@ export const HeroSection = () => {
         duration: 0.8,
         ease: "power4.out"
       })
-      .from(".hero-char", {
-        yPercent: 110,
-        stagger: 0.03,
-        duration: 1,
-        ease: "power4.out"
-      }, "-=0.6")
-      .from(".hero-desc", {
-        y: 30,
-        opacity: 0,
-        duration: 0.8,
-        ease: "power3.out"
-      }, "-=0.4")
-      .from(".hero-social", {
-        y: 20,
-        opacity: 0,
-        stagger: 0.1,
-        duration: 0.8,
-        ease: "power3.out"
-      }, "-=0.6");
+        .from(".hero-char", {
+          yPercent: 110,
+          stagger: 0.03,
+          duration: 1,
+          ease: "power4.out"
+        }, "-=0.6")
+        .from(".hero-desc", {
+          y: 30,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out"
+        }, "-=0.4")
+        .from(".hero-social", {
+          y: 20,
+          opacity: 0,
+          stagger: 0.1,
+          duration: 0.8,
+          ease: "power3.out"
+        }, "-=0.6");
 
       // Corregida la animación de rotación de palabras:
       // La palabra actual sube y desaparece, la nueva entra desde abajo.
@@ -51,10 +51,10 @@ export const HeroSection = () => {
         if (i === 0) {
           rotationTl.set(rotatingTextRef.current, { textContent: word, y: 0, opacity: 1 });
         }
-        
+
         // Pausa para que el usuario lea la palabra
         rotationTl.to({}, { duration: 2.5 });
-        
+
         // Animar hacia ARRIBA (salir)
         rotationTl.to(rotatingTextRef.current, {
           y: -20,
@@ -62,11 +62,11 @@ export const HeroSection = () => {
           duration: 0.4,
           ease: "power2.in",
         });
-        
+
         // Cambiar el texto a la siguiente palabra (circular)
         const nextWord = t.words[(i + 1) % t.words.length];
         rotationTl.set(rotatingTextRef.current, { textContent: nextWord, y: 20 });
-        
+
         // Animar desde ABAJO (entrar)
         rotationTl.to(rotatingTextRef.current, {
           y: 0,
@@ -103,19 +103,22 @@ export const HeroSection = () => {
           {t.label}
         </span>
 
-        <h1 className="hero-title tracking-tightest mb-8 hero-title-parallax" style={{ 
+        <h1 className="hero-title tracking-tightest mb-8 hero-title-parallax" style={{
           fontSize: 'clamp(40px, 7vw, 90px)',
           lineHeight: '0.9',
           letterSpacing: '-0.04em'
         }}>
-          <div className="flex flex-wrap overflow-hidden">
-            {"KEVIN".split("").map((char, i) => (
-              <span key={i} className="hero-char inline-block font-headline font-extrabold uppercase">{char}</span>
-            ))}
-            <span className="w-4" />
-            {"GÓMEZ.".split("").map((char, i) => (
-              <span key={i} className="hero-char inline-block font-headline font-extrabold uppercase text-accent">{char}</span>
-            ))}
+          <div className="flex flex-wrap overflow-hidden gap-x-4">
+            <span className="flex whitespace-nowrap">
+              {"KEVIN".split("").map((char, i) => (
+                <span key={i} className="hero-char inline-block font-headline font-extrabold uppercase">{char}</span>
+              ))}
+            </span>
+            <span className="flex whitespace-nowrap">
+              {"GÓMEZ.".split("").map((char, i) => (
+                <span key={i} className="hero-char inline-block font-headline font-extrabold uppercase text-accent">{char}</span>
+              ))}
+            </span>
           </div>
         </h1>
 
