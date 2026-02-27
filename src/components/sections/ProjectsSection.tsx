@@ -48,8 +48,7 @@ export const ProjectsSection = () => {
     <section id="proyectos" ref={containerRef} className="py-24 px-6 md:px-12 bg-background">
       <div className="max-w-7xl mx-auto">
         <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-8">
-          {/* Tamaño reducido para un look más refinado */}
-          <h2 className="projects-title text-lg md:text-xl font-headline font-extrabold tracking-tightest uppercase overflow-hidden">
+          <h2 className="projects-title text-4xl md:text-6xl font-headline font-extrabold tracking-tightest uppercase overflow-hidden">
             {t.title.split("").map((char, i) => (
               <span key={i} className="projects-title-char inline-block">{char}</span>
             ))}<span className="text-accent">.</span>
