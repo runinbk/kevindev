@@ -1,7 +1,8 @@
+
 "use client";
 
 import { useEffect, ReactNode } from 'react';
-import Lenis from '@studio-freight/lenis';
+import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
@@ -17,7 +18,6 @@ export const SmoothScroll = ({ children }: { children: ReactNode }) => {
       smoothWheel: true,
       wheelMultiplier: 1,
       touchMultiplier: 2,
-      infinite: false,
     });
 
     lenis.on('scroll', ScrollTrigger.update);

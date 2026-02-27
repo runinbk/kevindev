@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -28,11 +29,19 @@
 @layer base {
   * {
     @apply border-border;
-    cursor: none !important;
   }
+  
   body {
     @apply bg-background text-foreground overflow-x-hidden antialiased selection:bg-accent selection:text-accent-foreground;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02";
+  }
+
+  /* Only hide cursor on non-mobile when component is mounted */
+  @media (min-width: 769px) {
+    body.cursor-active, 
+    body.cursor-active * {
+      cursor: none !important;
+    }
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -67,10 +76,4 @@ html.lenis {
 
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
-}
-
-@media (max-width: 768px) {
-  * {
-    cursor: auto !important;
-  }
 }

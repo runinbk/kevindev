@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useRef, useState } from 'react';
@@ -9,6 +10,9 @@ export const CustomCursor = () => {
   const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
+    // Add class to body to enable cursor: none logic in CSS
+    document.body.classList.add('cursor-active');
+
     const onMouseMove = (e: MouseEvent) => {
       const { clientX, clientY } = e;
       
@@ -16,7 +20,6 @@ export const CustomCursor = () => {
         mainCursor.current.style.transform = `translate3d(${clientX}px, ${clientY}px, 0)`;
       }
 
-      // Smooth lag for secondary cursor
       if (secondaryCursor.current) {
         secondaryCursor.current.animate(
           {
@@ -39,6 +42,7 @@ export const CustomCursor = () => {
     });
 
     return () => {
+      document.body.classList.remove('cursor-active');
       window.removeEventListener('mousemove', onMouseMove);
       interactables.forEach((el) => {
         el.removeEventListener('mouseenter', onHoverStart);
