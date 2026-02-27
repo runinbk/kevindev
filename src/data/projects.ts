@@ -27,10 +27,10 @@ export const projects: Project[] = [
     year: "2024",
     description: "Una experiencia de compra minimalista para una marca de iluminación premium.",
     descriptionEn: "A minimalist shopping experience for a premium lighting brand.",
-    thumbnail: "https://picsum.photos/seed/lumina/1200/800",
+    thumbnail: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop",
     images: [
-      "https://picsum.photos/seed/lumina1/1200/800",
-      "https://picsum.photos/seed/lumina2/1200/800"
+      "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop"
     ],
     liveUrl: "https://example.com",
     techStack: ["Next.js", "Tailwind CSS", "Shopify CMS"],
@@ -47,10 +47,10 @@ export const projects: Project[] = [
     year: "2023",
     description: "Plataforma de análisis de datos en tiempo real para equipos de marketing.",
     descriptionEn: "Real-time data analysis platform for marketing teams.",
-    thumbnail: "https://picsum.photos/seed/nexus/1200/800",
+    thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
     images: [
-      "https://picsum.photos/seed/nexus1/1200/800",
-      "https://picsum.photos/seed/nexus2/1200/800"
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop"
     ],
     liveUrl: "https://example.com",
     techStack: ["React", "D3.js", "Firebase", "Node.js"],
@@ -67,10 +67,10 @@ export const projects: Project[] = [
     year: "2023",
     description: "Aplicación progresiva enfocada en el bienestar mental y meditación guiada.",
     descriptionEn: "Progressive web app focused on mental well-being and guided meditation.",
-    thumbnail: "https://picsum.photos/seed/aura/1200/800",
+    thumbnail: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=1200&auto=format&fit=crop",
     images: [
-      "https://picsum.photos/seed/aura1/1200/800",
-      "https://picsum.photos/seed/aura2/1200/800"
+      "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=1200&auto=format&fit=crop"
     ],
     liveUrl: "https://example.com",
     techStack: ["Next.js", "Framer Motion", "Supabase"],
@@ -87,10 +87,10 @@ export const projects: Project[] = [
     year: "2024",
     description: "Sitio web corporativo para una agencia creativa basada en Londres.",
     descriptionEn: "Corporate website for a London-based creative agency.",
-    thumbnail: "https://picsum.photos/seed/vortex/1200/800",
+    thumbnail: "https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1200&auto=format&fit=crop",
     images: [
-      "https://picsum.photos/seed/vortex1/1200/800",
-      "https://picsum.photos/seed/vortex2/1200/800"
+      "https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1200&auto=format&fit=crop"
     ],
     liveUrl: "https://example.com",
     techStack: ["Next.js", "GSAP", "Sanity.io"],

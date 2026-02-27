@@ -58,10 +58,9 @@ export const AboutSection = () => {
           <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-accent mb-8">{t.stack}</h3>
           <div className="skills-grid flex flex-wrap gap-4">
             {skills.map((skill) => (
-              <span 
-                key={skill} 
-                className="skill-badge px-6 py-3 border border-border rounded-full text-sm md:text-base font-medium hover:bg-foreground hover:text-background transition-colors duration-300"
-                style={{ borderColor: 'var(--border)', color: 'var(--text-primary)' }}
+              <span
+                key={skill}
+                className="skill-badge px-6 py-3 border border-[var(--border)] text-[var(--text-primary)] rounded-full text-sm md:text-base font-medium hover:bg-foreground hover:text-background transition-colors duration-300"
               >
                 {skill}
               </span>

@@ -22,11 +22,15 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
       const handleError = (e: ErrorEvent | PromiseRejectionEvent) => {
         const message = (e instanceof ErrorEvent) ? e.message : (e.reason?.message || '');
         if (
-          message?.includes('MetaMask') || 
-          message?.includes('extension') || 
+          message?.includes('MetaMask') ||
+          message?.includes('extension') ||
           message?.includes('chrome-extension') ||
           message?.includes('Failed to connect to MetaMask') ||
-          message?.includes('nkbihfbeogaeaoehlefnkodbefgpgknn')
+          message?.includes('nkbihfbeogaeaoehlefnkodbefgpgknn') ||
+          message?.includes('unpermitted intrinsics') ||
+          message?.includes('react-devtools') ||
+          message?.includes('Receiving end does not exist') ||
+          message?.includes('runtime.lastError')
         ) {
           e.stopImmediatePropagation();
           if (e.preventDefault) e.preventDefault();
@@ -35,18 +39,33 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
 
       window.addEventListener('error', handleError, true);
       window.addEventListener('unhandledrejection', handleError, true);
-      
+
       const originalError = console.error;
+      const originalWarn = console.warn;
+
       console.error = (...args) => {
         const msg = args[0];
         if (typeof msg === 'string' && (
-          msg.includes('MetaMask') || 
-          msg.includes('chrome-extension') || 
-          msg.includes('nkbihfbeogaeaoehlefnkodbefgpgknn')
+          msg.includes('MetaMask') ||
+          msg.includes('chrome-extension') ||
+          msg.includes('nkbihfbeogaeaoehlefnkodbefgpgknn') ||
+          msg.includes('runtime.lastError') ||
+          msg.includes('Receiving end does not exist')
         )) {
           return;
         }
         originalError.apply(console, args);
+      };
+
+      console.warn = (...args) => {
+        const msg = args[0];
+        if (typeof msg === 'string' && (
+          msg.includes('unpermitted intrinsics') ||
+          msg.includes('react-devtools')
+        )) {
+          return;
+        }
+        originalWarn.apply(console, args);
       };
 
       return () => {
