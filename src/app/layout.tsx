@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from 'react';
@@ -30,7 +31,8 @@ export default function RootLayout({
           message?.includes('MetaMask') || 
           message?.includes('extension') || 
           message?.includes('chrome-extension') ||
-          message?.includes('Failed to connect to MetaMask')
+          message?.includes('Failed to connect to MetaMask') ||
+          message?.includes('nkbihfbeogaeaoehlefnkodbefgpgknn')
         ) {
           e.stopImmediatePropagation();
           if (e.preventDefault) e.preventDefault();
@@ -43,7 +45,11 @@ export default function RootLayout({
       const originalError = console.error;
       console.error = (...args) => {
         const msg = args[0];
-        if (typeof msg === 'string' && (msg.includes('MetaMask') || msg.includes('chrome-extension'))) {
+        if (typeof msg === 'string' && (
+          msg.includes('MetaMask') || 
+          msg.includes('chrome-extension') || 
+          msg.includes('nkbihfbeogaeaoehlefnkodbefgpgknn')
+        )) {
           return;
         }
         originalError.apply(console, args);

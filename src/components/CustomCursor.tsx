@@ -8,11 +8,23 @@ export const CustomCursor = () => {
   const mainCursor = useRef<HTMLDivElement>(null);
   const secondaryCursor = useRef<HTMLDivElement>(null);
   const [state, setState] = useState<'default' | 'hover' | 'project'>('default');
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [isInverted, setIsInverted] = useState(false);
 
   useEffect(() => {
     if (window.matchMedia('(pointer: coarse)').matches) return;
 
     document.body.classList.add('cursor-active');
+
+    // Inicializar tema y observar cambios
+    const updateTheme = () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme') as 'dark' | 'light';
+      setTheme(currentTheme || 'dark');
+    };
+    
+    updateTheme();
+    const observer = new MutationObserver(updateTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
     const onMouseMove = (e: MouseEvent) => {
       const { clientX, clientY } = e;
@@ -35,15 +47,34 @@ export const CustomCursor = () => {
 
     const handleHoverStart = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      if (target.closest('a, button, .interactive')) {
-        setState('hover');
-      }
-      if (target.closest('.project-card-wrapper')) {
+      const interactive = target.closest('a, button, .interactive');
+      const project = target.closest('.project-card-wrapper');
+      const isImage = target.closest('img');
+      const isDarkElement = target.closest('.bg-accent, .bg-primary');
+
+      if (project) {
         setState('project');
+      } else if (interactive) {
+        setState('hover');
+      } else {
+        setState('default');
+      }
+
+      // Lógica de inversión de color
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      if (currentTheme === 'light') {
+        // En modo claro: blanco sobre cosas oscuras o imágenes, negro sobre el resto
+        setIsInverted(!!isDarkElement || !!isImage || !!project);
+      } else {
+        // En modo oscuro: negro sobre el botón Lima (accent), blanco sobre el resto
+        setIsInverted(!!isDarkElement && !isImage);
       }
     };
 
-    const handleHoverEnd = () => setState('default');
+    const handleHoverEnd = () => {
+      setState('default');
+      setIsInverted(false);
+    };
 
     window.addEventListener('mousemove', onMouseMove);
     window.addEventListener('mouseover', handleHoverStart);
@@ -54,22 +85,27 @@ export const CustomCursor = () => {
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('mouseover', handleHoverStart);
       window.removeEventListener('mouseout', handleHoverEnd);
+      observer.disconnect();
     };
   }, []);
 
-  // Determinar color del cursor basado en el estado
+  // Determinar el color final
+  // isInverted significa que queremos el color opuesto al color de texto principal del tema
+  let color = theme === 'dark' ? '#F0EBE1' : '#0C0C0C';
+  if (isInverted) {
+    color = theme === 'dark' ? '#0C0C0C' : '#FFFFFF';
+  }
+
   // Si está sobre un proyecto, forzamos blanco para visibilidad sobre las imágenes
-  const cursorColor = state === 'project' ? '#FFFFFF' : 'var(--text-primary)';
+  if (state === 'project') color = '#FFFFFF';
 
   return (
     <div className="hidden md:block pointer-events-none fixed inset-0 z-[9999]">
-      {/* Punto central */}
       <div
         ref={mainCursor}
         className="fixed w-2 h-2 rounded-full -translate-x-1/2 -translate-y-1/2 transition-colors duration-300"
-        style={{ backgroundColor: cursorColor }}
+        style={{ backgroundColor: color }}
       />
-      {/* Círculo exterior */}
       <div
         ref={secondaryCursor}
         className={cn(
@@ -78,7 +114,7 @@ export const CustomCursor = () => {
           state === 'project' && "scale-[3.5] bg-white/10 border-white"
         )}
         style={{ 
-          borderColor: state === 'project' ? '#FFFFFF' : cursorColor,
+          borderColor: color,
           opacity: state === 'project' ? 0.9 : 0.5 
         }}
       >
