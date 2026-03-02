@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { Github, Linkedin, Instagram } from 'lucide-react';
+import { Github, Linkedin, Instagram, Twitter } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import { translations } from '@/data/translations';
 
@@ -30,8 +30,8 @@ export const Footer = () => {
               { name: nav.about, id: '#sobre' },
               { name: nav.contact, id: '#contacto' }
             ].map((item) => (
-              <Link 
-                key={item.id} 
+              <Link
+                key={item.id}
                 href={item.id}
                 className="text-lg font-medium hover:text-accent transition-colors w-fit"
               >
@@ -43,14 +43,17 @@ export const Footer = () => {
           <div className="flex flex-col gap-4">
             <h3 className="text-[11px] font-bold tracking-[0.2em] text-accent uppercase mb-4">{t.connect}</h3>
             <div className="flex flex-col gap-4">
-              <a href="#" className="flex items-center gap-3 text-lg font-medium hover:translate-x-2 transition-transform">
+              <a href="https://github.com/runinbk" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-lg font-medium hover:translate-x-2 transition-transform">
                 <Github size={18} /> GitHub
               </a>
-              <a href="#" className="flex items-center gap-3 text-lg font-medium hover:translate-x-2 transition-transform">
+              <a href="https://www.linkedin.com/in/kevinbgr/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-lg font-medium hover:translate-x-2 transition-transform">
                 <Linkedin size={18} /> LinkedIn
               </a>
-              <a href="#" className="flex items-center gap-3 text-lg font-medium hover:translate-x-2 transition-transform">
+              <a href="https://www.instagram.com/kevin_gomez_rocha/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-lg font-medium hover:translate-x-2 transition-transform">
                 <Instagram size={18} /> Instagram
+              </a>
+              <a href="https://x.com/keyan_gr" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-lg font-medium hover:translate-x-2 transition-transform">
+                <Twitter size={18} /> X
               </a>
             </div>
           </div>

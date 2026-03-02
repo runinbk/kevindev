@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { Github, Linkedin, Instagram } from 'lucide-react';
+import { Github, Linkedin, Instagram, Twitter } from 'lucide-react';
 import { Marquee } from '../Marquee';
 import { useLanguage } from '@/context/LanguageContext';
 import { translations } from '@/data/translations';
@@ -133,14 +133,17 @@ export const HeroSection = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            <a href="#" className="hero-social group p-4 border border-border rounded-full hover:bg-accent transition-all duration-500">
+            <a href="https://github.com/runinbk" target="_blank" rel="noopener noreferrer" className="hero-social group p-4 border border-border rounded-full hover:bg-accent transition-all duration-500">
               <Github className="w-5 h-5 group-hover:text-black transition-colors" />
             </a>
-            <a href="#" className="hero-social group p-4 border border-border rounded-full hover:bg-accent transition-all duration-500">
+            <a href="https://www.linkedin.com/in/kevinbgr/" target="_blank" rel="noopener noreferrer" className="hero-social group p-4 border border-border rounded-full hover:bg-accent transition-all duration-500">
               <Linkedin className="w-5 h-5 group-hover:text-black transition-colors" />
             </a>
-            <a href="#" className="hero-social group p-4 border border-border rounded-full hover:bg-accent transition-all duration-500">
+            <a href="https://www.instagram.com/kevin_gomez_rocha/" target="_blank" rel="noopener noreferrer" className="hero-social group p-4 border border-border rounded-full hover:bg-accent transition-all duration-500">
               <Instagram className="w-5 h-5 group-hover:text-black transition-colors" />
+            </a>
+            <a href="https://x.com/keyan_gr" target="_blank" rel="noopener noreferrer" className="hero-social group p-4 border border-border rounded-full hover:bg-accent transition-all duration-500">
+              <Twitter className="w-5 h-5 group-hover:text-black transition-colors" />
             </a>
           </div>
         </div>

@@ -72,12 +72,12 @@ export const ContactSection = () => {
   const t = translations[language].contact;
 
   const getSocialUrl = (name: string) => {
-    // Aquí puedes reemplazar con las URLs reales de Kevin.
     const urls: Record<string, string> = {
-      'GitHub': 'https://github.com/kevingomez',
-      'LinkedIn': 'https://linkedin.com/in/kevingomez',
-      'Instagram': 'https://instagram.com/kevingomez',
-      'Twitter': 'https://twitter.com/kevingomez'
+      'GitHub': 'https://github.com/runinbk',
+      'LinkedIn': 'https://www.linkedin.com/in/kevinbgr/',
+      'Instagram': 'https://www.instagram.com/kevin_gomez_rocha/',
+      'X': 'https://x.com/keyan_gr',
+      'Twitter': 'https://x.com/keyan_gr'
     };
     return urls[name] || '#';
   };
@@ -120,7 +120,7 @@ export const ContactSection = () => {
         <div className="mt-20 contact-reveal">
           <p className="text-muted-foreground mb-8 uppercase tracking-widest text-sm font-bold">{t.social}</p>
           <div className="flex flex-wrap gap-6 md:gap-10 justify-center">
-            {['GitHub', 'LinkedIn', 'Instagram', 'Twitter'].map((link) => (
+            {['GitHub', 'LinkedIn', 'Instagram', 'X'].map((link) => (
               <SocialLink key={link} link={link} url={getSocialUrl(link)} />
             ))}
           </div>
