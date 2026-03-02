@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowUpRight } from 'lucide-react';
-import { Project } from '@/data/projects';
+import { Project, getProjectTranslation, Locale } from '@/data/projects';
 import { cn } from '@/lib/utils';
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -15,12 +15,13 @@ interface ProjectCardProps {
 export const ProjectCard = ({ project }: ProjectCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const { language } = useLanguage();
-  
-  const title = language === 'es' ? project.title : project.titleEn;
-  const categories = language === 'es' ? project.category : project.categoryEn;
+
+  const translation = getProjectTranslation(project, language as Locale);
+  const title = translation.title;
+  const categories = translation.category;
 
   return (
-    <Link 
+    <Link
       href={`/trabajo/${project.slug}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -48,8 +49,8 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
       <div className="absolute bottom-0 left-0 w-full p-8 z-20 flex flex-col gap-2">
         <div className="flex flex-wrap gap-2 mb-2">
           {categories.map((cat, i) => (
-            <span 
-              key={cat} 
+            <span
+              key={cat}
               className={cn(
                 "text-[10px] tracking-widest uppercase text-white/70 font-bold transition-all duration-500",
                 isHovered ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
@@ -60,7 +61,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
             </span>
           ))}
         </div>
-        
+
         <div className="flex items-end justify-between">
           <h3 className="text-3xl md:text-4xl font-headline font-bold uppercase tracking-tightest leading-none text-white">
             {title}

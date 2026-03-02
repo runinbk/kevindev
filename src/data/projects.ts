@@ -1,100 +1,167 @@
+// /data/projects.ts
+
+export type Locale = 'es' | 'en'
+
+export interface ProjectTranslation {
+  title: string
+  description: string        // descripción corta para la card
+  longDescription: string    // descripción larga para la página detalle
+  category: string[]
+}
+
 export interface Project {
-  id: string;
-  slug: string;
-  title: string;
-  titleEn: string;
-  category: string[];
-  categoryEn: string[];
-  year: string;
-  description: string;
-  descriptionEn: string;
-  thumbnail: string;
-  images: string[];
-  liveUrl: string;
-  techStack: string[];
-  longDescription: string;
-  longDescriptionEn: string;
+  id: string
+  slug: string
+  year: string
+  thumbnail: string          // ruta de imagen thumbnail
+  images: string[]           // rutas de imágenes adicionales
+  liveUrl: string
+  techStack: string[]        // el tech stack NO se traduce
+  translations: {
+    es: ProjectTranslation
+    en: ProjectTranslation
+  }
 }
 
 export const projects: Project[] = [
+  // ─────────────────────────────────────────
+  // PROYECTO 1 — GRILLI RESTAURANT
+  // ─────────────────────────────────────────
   {
-    id: "01",
-    slug: "lumina-ecommerce",
-    title: "Lumina E-shop",
-    titleEn: "Lumina E-shop",
-    category: ["E-commerce", "Diseño Web"],
-    categoryEn: ["E-commerce", "Web Design"],
+    id: "1",
+    slug: "grilli-restaurant",
     year: "2024",
-    description: "Una experiencia de compra minimalista para una marca de iluminación premium.",
-    descriptionEn: "A minimalist shopping experience for a premium lighting brand.",
-    thumbnail: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop",
+    thumbnail: "/assets/grilli-thumb.png",
     images: [
-      "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop"
+      "/assets/grilli-1.png",
+      "/assets/grilli-2.png",
     ],
-    liveUrl: "https://example.com",
-    techStack: ["Next.js", "Tailwind CSS", "Shopify CMS"],
-    longDescription: "Lumina es una plataforma de comercio electrónico diseñada para resaltar la estética de productos de iluminación de lujo. El enfoque fue crear una interfaz que no distrajera del producto, utilizando micro-interacciones sutiles y un sistema de grid flexible.",
-    longDescriptionEn: "Lumina is an e-commerce platform designed to highlight the aesthetics of luxury lighting products. The focus was to create an interface that wouldn't distract from the product, using subtle micro-interactions and a flexible grid system."
+    liveUrl: "https://project4-iota-indol.vercel.app/",
+    techStack: ["React", "Tailwind CSS", "Vite"],
+    translations: {
+      es: {
+        title: "Grilli Restaurant",
+        category: ["Landing Page", "Web Design"],
+        description: "Sitio web completo para restaurante con sistema de reservas online, menú interactivo y diseño cálido orientado a la experiencia gastronómica.",
+        longDescription: "Grilli es un sitio web para restaurante que combina estética cálida con funcionalidad práctica. Incluye un slider de hero animado, secciones de menú con categorías, galería de platos especiales, formulario de reservas con selección de hora y número de personas, sección de próximos eventos y contacto. El diseño usa una paleta dorada y crema que transmite elegancia y calidez gastronómica.",
+      },
+      en: {
+        title: "Grilli Restaurant",
+        category: ["Landing Page", "Web Design"],
+        description: "Full restaurant website with online reservation system, interactive menu and warm design focused on the gastronomic experience.",
+        longDescription: "Grilli is a restaurant website that combines warm aesthetics with practical functionality. It includes an animated hero slider, menu sections with categories, special dish gallery, reservation form with time and guest selection, upcoming events section and contact. The design uses a golden and cream palette that conveys elegance and gastronomic warmth.",
+      }
+    }
   },
+
+  // ─────────────────────────────────────────
+  // PROYECTO 2 — ZENTRY REBUILD
+  // ─────────────────────────────────────────
   {
-    id: "02",
-    slug: "nexus-saas",
-    title: "Nexus Platform",
-    titleEn: "Nexus Platform",
-    category: ["SaaS", "Dashboard"],
-    categoryEn: ["SaaS", "Dashboard"],
-    year: "2023",
-    description: "Plataforma de análisis de datos en tiempo real para equipos de marketing.",
-    descriptionEn: "Real-time data analysis platform for marketing teams.",
-    thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
-    images: [
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop"
-    ],
-    liveUrl: "https://example.com",
-    techStack: ["React", "D3.js", "Firebase", "Node.js"],
-    longDescription: "Nexus ayuda a las empresas a visualizar sus métricas más importantes. El desafío fue manejar grandes volúmenes de datos sin comprometer el rendimiento de la interfaz de usuario.",
-    longDescriptionEn: "Nexus helps companies visualize their most important metrics. The challenge was to handle large volumes of data without compromising user interface performance."
-  },
-  {
-    id: "03",
-    slug: "aura-app",
-    title: "Aura Meditation",
-    titleEn: "Aura Meditation",
-    category: ["Web App", "UI/UX"],
-    categoryEn: ["Web App", "UI/UX"],
-    year: "2023",
-    description: "Aplicación progresiva enfocada en el bienestar mental y meditación guiada.",
-    descriptionEn: "Progressive web app focused on mental well-being and guided meditation.",
-    thumbnail: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=1200&auto=format&fit=crop",
-    images: [
-      "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=1200&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=1200&auto=format&fit=crop"
-    ],
-    liveUrl: "https://example.com",
-    techStack: ["Next.js", "Framer Motion", "Supabase"],
-    longDescription: "Aura es una PWA que ofrece una experiencia inmersiva de meditación. Implementamos animaciones fluidas para guiar la respiración del usuario y un modo oscuro profundo para reducir la fatiga visual.",
-    longDescriptionEn: "Aura is a PWA that offers an immersive meditation experience. We implemented fluid animations to guide the user's breathing and a deep dark mode to reduce eye strain."
-  },
-  {
-    id: "04",
-    slug: "vortex-agency",
-    title: "Vortex Creative",
-    titleEn: "Vortex Creative",
-    category: ["Agencia", "Portafolio"],
-    categoryEn: ["Agency", "Portfolio"],
+    id: "2",
+    slug: "zentry-rebuild",
     year: "2024",
-    description: "Sitio web corporativo para una agencia creativa basada en Londres.",
-    descriptionEn: "Corporate website for a London-based creative agency.",
-    thumbnail: "https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1200&auto=format&fit=crop",
+    thumbnail: "/assets/zentry-thumb.png",
     images: [
-      "https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1200&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1200&auto=format&fit=crop"
+      "/assets/zentry-1.png",
+      "/assets/zentry-2.png",
     ],
-    liveUrl: "https://example.com",
-    techStack: ["Next.js", "GSAP", "Sanity.io"],
-    longDescription: "Vortex necesitaba un portafolio que gritara 'creatividad'. Utilizamos GSAP para crear transiciones de página complejas y efectos de scroll que mantienen al usuario comprometido.",
-    longDescriptionEn: "Vortex needed a portfolio that screamed 'creativity'. We used GSAP to create complex page transitions and scroll effects that keep the user engaged."
-  }
-];
+    liveUrl: "https://webpage2-ruby.vercel.app/",
+    techStack: ["React", "GSAP", "Tailwind CSS", "Vite"],
+    translations: {
+      es: {
+        title: "Zentry — Rebuild",
+        category: ["UI/UX", "Animaciones", "Web Design"],
+        description: "Reconstrucción fiel del sitio de Zentry, destacando animaciones avanzadas, transiciones fluidas y una experiencia visual de nivel premium.",
+        longDescription: "Proyecto de reconstrucción del sitio web de Zentry, enfocado en replicar y estudiar animaciones de nivel world-class. Incluye scroll storytelling, transiciones de clip-path, efectos de paralax y una interfaz inmersiva. Este proyecto demuestra dominio avanzado de GSAP y técnicas de animación web modernas.",
+      },
+      en: {
+        title: "Zentry — Rebuild",
+        category: ["UI/UX", "Animations", "Web Design"],
+        description: "Faithful reconstruction of Zentry's website, highlighting advanced animations, fluid transitions and a premium-level visual experience.",
+        longDescription: "Reconstruction project of the Zentry website, focused on replicating and studying world-class animations. Features scroll storytelling, clip-path transitions, parallax effects and an immersive interface. This project demonstrates advanced mastery of GSAP and modern web animation techniques.",
+      }
+    }
+  },
+
+  // ─────────────────────────────────────────
+  // PROYECTO 3 — SPYLT MILK
+  // ─────────────────────────────────────────
+  {
+    id: "3",
+    slug: "spylt-milk",
+    year: "2024",
+    thumbnail: "/assets/spylt-thumb.png",
+    images: [
+      "/assets/spylt-1.png",
+      "/assets/spylt-2.png",
+    ],
+    liveUrl: "https://webpage3-beige.vercel.app/",
+    techStack: ["React", "Tailwind CSS", "Vite"],
+    translations: {
+      es: {
+        title: "SPYLT Milk",
+        category: ["Branding", "Landing Page", "E-commerce"],
+        description: "Landing page de producto para marca de leche con identidad visual fuerte, diseño editorial moderno y animaciones de entrada.",
+        longDescription: "SPYLT Milk es una landing page para una marca de productos lácteos con personalidad propia. El diseño apuesta por un estilo editorial y minimalista que diferencia el producto en el mercado. Se priorizó la identidad visual de la marca, la jerarquía tipográfica y una experiencia de scroll limpia y moderna.",
+      },
+      en: {
+        title: "SPYLT Milk",
+        category: ["Branding", "Landing Page", "E-commerce"],
+        description: "Product landing page for a milk brand with strong visual identity, modern editorial design and entrance animations.",
+        longDescription: "SPYLT Milk is a landing page for a dairy brand with its own personality. The design bets on an editorial and minimalist style that differentiates the product in the market. Brand visual identity, typographic hierarchy and a clean, modern scroll experience were prioritized.",
+      }
+    }
+  },
+
+  // ─────────────────────────────────────────
+  // PROYECTO 4 — TRUUS AGENCY
+  // ─────────────────────────────────────────
+  {
+    id: "4",
+    slug: "truus-agency",
+    year: "2024",
+    thumbnail: "/assets/truus-thumb.png",
+    images: [
+      "/assets/truus-1.png",
+      "/assets/truus-2.png",
+    ],
+    liveUrl: "https://webpage5-chi.vercel.app/",
+    techStack: ["HTML", "CSS", "JavaScript", "SVG Animation"],
+    translations: {
+      es: {
+        title: "Truus — Ad Agency",
+        category: ["Agencia", "Web Design", "UI/UX"],
+        description: "Réplica del sitio de una agencia de publicidad con personalidad irreverente, SVG animados, marquee interactivo y stickers en el footer.",
+        longDescription: "Recreación del sitio de Truus, una agencia de publicidad holandesa con estética muy particular: tipografía bold, stickers SVG animados, sección de marquee con imágenes y un footer lleno de personalidad. Design and code by Kevin Gómez. Este proyecto muestra capacidad para traducir identidades de marca únicas en experiencias web memorables.",
+      },
+      en: {
+        title: "Truus — Ad Agency",
+        category: ["Agency", "Web Design", "UI/UX"],
+        description: "Replica of an irreverent ad agency website with animated SVGs, interactive marquee and stickers in the footer.",
+        longDescription: "Recreation of the Truus website, a Dutch advertising agency with a very particular aesthetic: bold typography, animated SVG stickers, image marquee section and a footer full of personality. Design and code by Kevin Gómez. This project shows the ability to translate unique brand identities into memorable web experiences.",
+      }
+    }
+  },
+]
+
+// ─────────────────────────────────────────
+// HELPER: obtener proyecto por slug
+// ─────────────────────────────────────────
+export function getProjectBySlug(slug: string): Project | undefined {
+  return projects.find(p => p.slug === slug)
+}
+
+// ─────────────────────────────────────────
+// HELPER: obtener todos los proyectos
+// ─────────────────────────────────────────
+export function getAllProjects(): Project[] {
+  return projects
+}
+
+// ─────────────────────────────────────────
+// HELPER: obtener traducción según locale
+// ─────────────────────────────────────────
+export function getProjectTranslation(project: Project, locale: Locale): ProjectTranslation {
+  return project.translations[locale] ?? project.translations['es']
+}

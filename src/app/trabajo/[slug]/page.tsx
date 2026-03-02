@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import gsap from 'gsap';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
-import { projects } from '@/data/projects';
+import { projects, getProjectTranslation, Locale } from '@/data/projects';
 import { useLanguage } from '@/context/LanguageContext';
 import { translations } from '@/data/translations';
 
@@ -46,9 +46,10 @@ export default function ProjectDetailPage() {
 
   if (!project) return null;
 
-  const title = language === 'es' ? project.title : project.titleEn;
-  const categories = language === 'es' ? project.category : project.categoryEn;
-  const description = language === 'es' ? project.longDescription : project.longDescriptionEn;
+  const translation = getProjectTranslation(project, language as Locale);
+  const title = translation.title;
+  const categories = translation.category;
+  const description = translation.longDescription;
 
   return (
     <div ref={containerRef} className="pt-24 pb-32">
@@ -85,7 +86,7 @@ export default function ProjectDetailPage() {
           <p className="reveal-item text-xl md:text-3xl font-medium leading-relaxed mb-12">
             {description}
           </p>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-20">
             {project.images.map((img, i) => (
               <div key={i} className="reveal-item aspect-[4/3] relative overflow-hidden bg-secondary">
@@ -108,9 +109,9 @@ export default function ProjectDetailPage() {
           </div>
 
           <div className="reveal-item">
-            <a 
-              href={project.liveUrl} 
-              target="_blank" 
+            <a
+              href={project.liveUrl}
+              target="_blank"
               className="group flex items-center justify-between p-8 bg-accent text-accent-foreground font-bold uppercase tracking-widest hover:brightness-110 transition-all"
             >
               <span>{t.live}</span>
